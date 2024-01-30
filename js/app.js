@@ -217,7 +217,6 @@ async function login() {
     location.href = `/users`;
   }else {  location.href = `/profile?user_id=${data.user_id}`;}
 
-
 }
 
 // ############################################################
@@ -301,6 +300,44 @@ function search_orders(){
 
 // ############################################################
 function search_own_orders(){
+  clearTimeout(timer_search)
+  timer_search = setTimeout(async function(){ 
+
+    const frm = document.querySelector("#frm_search")
+    const url = frm.getAttribute('data-url')
+    console.log("URL: ", url)
+    const conn = await fetch(`/api/${url}`, {
+      method : "POST",
+      body : new FormData(frm)
+    })
+    
+    const data = await conn.json()
+
+    const query_results_container = document.querySelector("#query_results");
+    query_results_container.innerHTML = "";
+ 
+    if (data.length > 0) {
+      data.forEach(order => {
+        let div_order = `
+          <div class="grid grid-cols-4 p-2">
+            <div class="">${order.order_id}</div>
+            <div class="">${order.user_name}</div>
+            <div class="">${order.user_last_name}</div>
+            <div class="">${order.product_name}</div>
+          </div>
+        `;
+        query_results_container.insertAdjacentHTML('afterbegin', div_order);
+      });
+    } else {
+      // If no hits, display a message
+      query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
+    }
+
+  }, 500);
+}
+
+// ############################################################
+function search_partners_orders(){
   clearTimeout(timer_search)
   timer_search = setTimeout(async function(){ 
 
