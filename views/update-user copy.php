@@ -2,10 +2,14 @@
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';  
 
+_is_logged_in();
+
+$user_id = $_GET['user_id'];
+
 // TODO: _validate_user_id() in the master file
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
-$q->bindValue(':user_id', $_SESSION['user']['user_id']);
+$q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
@@ -26,7 +30,7 @@ $user = $q->fetch();
       class="border rounded-md" value="<?=$user['user_name']?>">
     </div>
 
-        <div class="grid">
+    <!-- <div class="grid">
       <label for="user_last_name" class="flex">
         <span class="text-gray-50">Last name</span> 
         <span class="ml-auto text-gray-50"><?= USER_LAST_NAME_MIN ?> to <?= USER_LAST_NAME_MAX ?> characters</span>
@@ -91,7 +95,7 @@ $user = $q->fetch();
       <input name="user_confirm_password" type="password"
       data-validate="match" data-match-name="user_password"
       class="border rounded-md">
-    </div>
+    </div> -->
 
     <button class="w-full h-10 bg-teal-200 text-gray-900 rounded-md py-2 px-8">Update</button>
 

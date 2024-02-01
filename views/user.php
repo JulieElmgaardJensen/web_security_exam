@@ -12,10 +12,8 @@ $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
-if (!$user) {
-  header('Location: /users');
-  exit();
-}
+_is_logged_in();
+_is_admin();
 ?>
 
 

@@ -143,18 +143,18 @@ function _validate_user_id(){
   }
 }
 
-function _check_login(){
+// function _check_login(){
 
-  if(isset($_SESSION['user_id'])){
-    $id = $_SESSION['user_id'];
-    $q = "SELECT * FROM users WHERE user_id = '$id' LIMIT 1";
-  }
-}
+//   if(isset($_SESSION['user_id'])){
+//     $id = $_SESSION['user_id'];
+//     $q = "SELECT * FROM users WHERE user_id = '$id' LIMIT 1";
+//   }
+// }
 
 
 // ##############################
 function _is_partner(){
-  if($_SESSION['user']['user_role'] !== "partner"){
+  if($_SESSION['user']['user_role'] !== 'partner'){
     header('Location: /');
     exit();
   };
@@ -162,7 +162,7 @@ function _is_partner(){
 
 // ##############################
 function _is_admin(){
-  if($_SESSION['user']['user_role'] !== "admin"){
+  if($_SESSION['user']['user_role'] !== 'admin'){
     header('Location: /');
     exit();
   };
@@ -170,21 +170,19 @@ function _is_admin(){
 
 // ##############################
 function _is_blocked() {
-  if (!isset($_SESSION['user'])) {
-    if($_SESSION['user']['user_is_blocked'] === 1){
+    if($_SESSION['user']['user_is_blocked'] === '1'){
+      session_destroy();
       header('Location: /blocked');
       exit();
     }
-  }
 }
 
 function _is_deleted() {
-  if(!isset($_SESSION['user'])) {
-    if($_SESSION['user']['user_deleted_at'] !== 0) {
-      header('Location: /logout');
+    if($_SESSION['user']['user_deleted_at'] !== '0') {
+      session_destroy();
+      header('Location: /deleted');
       exit();
     }
-  }
 }
 
 
