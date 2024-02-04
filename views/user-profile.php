@@ -8,6 +8,8 @@ $user_id = $_GET['user_id'];
 
 _is_deleted();
 _is_blocked();
+_is_logged_in();
+_check_user_id($user_id);
 
 // TODO: _validate_user_id() in the master file
 $db = _db();
@@ -15,6 +17,8 @@ $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
 $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
+
+
 
 ?>
 

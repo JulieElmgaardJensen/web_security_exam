@@ -29,7 +29,7 @@ $users = $sql->fetchAll();
   </div>
 
 
-  <div class="grid grid-cols-9 w-full pt-4 text-left">
+  <div class="grid grid-cols-9-users w-full pt-4 text-left">
   <span class="font-bold" for="">User id</span>
   <span class="font-bold" for="">User name and lastname</span>
   <span class="font-bold" for="">User username</span>
@@ -42,7 +42,7 @@ $users = $sql->fetchAll();
   </div>
 
   <?php foreach($users as $user):?>
-    <div class="grid grid-cols-9 w-full pt-6 text-left">
+    <div class="grid grid-cols-9-users w-full pt-6 text-left">
 
       <div><?= $user['user_id'] ?></div>
       <div><?= $user['user_name'] ?><p> </p><?= $user['user_last_name'] ?></div>

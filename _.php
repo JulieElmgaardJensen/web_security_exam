@@ -189,7 +189,21 @@ function _is_deleted() {
 // ##############################
 function _is_logged_in() {
   if (!isset($_SESSION['user'])) {
-      header('Location: /');
+      header('Location: /logout');
+      exit();
+  }
+}
+
+// ##############################
+function _check_user_id($user_id) {
+  if (!isset($_SESSION['user']['user_id'])) {
+      header("Location: /logout");
+      exit();
+  }
+
+  if ($_SESSION['user']['user_id'] != $user_id) {
+      header("Location: /404");
+      exit();
   }
 }
 

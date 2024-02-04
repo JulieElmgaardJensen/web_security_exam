@@ -713,9 +713,15 @@ video {
 }
 
 .grid-cols-9 {
+  grid-template-columns: 80px 130px 143.75px 143.75px 143.75px 143.75px 143.75px 100px 80px;
+  grid-column-gap: 1rem;
+}
+
+.grid-cols-9-users {
   grid-template-columns: 80px 130px 143.75px 90px 143.75px 250px 100px 90px 80px;
   grid-column-gap: 1rem;
 }
+
 
 .hidden {
   display: none;
