@@ -4,11 +4,10 @@ require_once __DIR__.'/../_.php';
 try{
   session_start();
 
-  if( ! isset($_SESSION['user']['user_id']) ){
-    throw new Exception('user not logged', 400);
-  }
+  _is_logged_in();
 
   $user_id = $_SESSION['user']['user_id'];
+  
   $db = _db();
   $q = $db->prepare('
     UPDATE users

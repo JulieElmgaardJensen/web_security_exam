@@ -133,15 +133,18 @@ async function toggle_blocked(user_id, user_is_blocked){
 }
 
 // ############################################################
-async function update_user() {
+async function update_user(user_id) {
 
   const frm = event.target
   console.log(frm)
 
+  const formData = new FormData(frm);
+  formData.append('user_id', user_id);
+
   const conn = await fetch('/api/api-update-user.php', {
-    method: "POST",
-    body: new FormData(frm)
-  })
+      method: "POST",
+      body: formData
+  });
 
   if (!conn.ok) {
     Swal.fire({
@@ -154,7 +157,6 @@ async function update_user() {
   }
   
   alert('User updated!');
-  location.href = "/"
 }
 
 

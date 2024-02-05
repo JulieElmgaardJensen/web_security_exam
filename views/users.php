@@ -29,11 +29,11 @@ $users = $sql->fetchAll();
   </div>
 
 
-  <div class="grid grid-cols-8 w-full pt-4 text-left">
+  <div class="grid grid-cols-9-users w-full pt-4 text-left">
   <span class="font-bold" for="">User id</span>
   <span class="font-bold" for="">User name and lastname</span>
   <span class="font-bold" for="">User username</span>
-  <!-- <span class="font-bold" for="">User last name</span> -->
+  <span class="font-bold" for="">User role</span>
   <span class="font-bold" for="">User address</span>
   <span class="font-bold" for="">User email</span>
   <span class="font-bold" for="">User status</span>
@@ -42,11 +42,12 @@ $users = $sql->fetchAll();
   </div>
 
   <?php foreach($users as $user):?>
-    <div class="grid grid-cols-8 w-full pt-6 text-left">
+    <div class="grid grid-cols-9-users w-full pt-6 text-left">
 
       <div><?= $user['user_id'] ?></div>
       <div><?= $user['user_name'] ?><p> </p><?= $user['user_last_name'] ?></div>
       <div><?= $user['user_username'] ?></div>
+      <div><?= $user['user_role'] ?></div>
       <div><?= $user['user_address'] ?></div>
       <div><?= $user['user_email'] ?></div>
       <button class="flex p-0 button_update_blocked_user <?= $user['user_is_blocked'] == 0 ? "text-green-500" : "text-red-500" ?>"

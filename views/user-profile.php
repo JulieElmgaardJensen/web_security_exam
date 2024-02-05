@@ -4,6 +4,11 @@ require_once __DIR__ . '/_header.php';
 
 $user_id = $_GET['user_id'];
 
+_is_deleted();
+_is_blocked();
+_is_logged_in();
+_check_user_id($user_id);
+
 // TODO: _validate_user_id() in the master file
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
@@ -29,7 +34,7 @@ $user = $q->fetch();
     <h4 class="text-l pt-4"><?= ucfirst($user['user_role']) ?></h4>
     <ul class="">
       <li>
-        <h3 class="pt-4">Full name:</h3>
+        <h3 class="text-xl pt-4">Full name:</h3>
       </li>
       <li>
         <p><?= $user['user_name'] ?> <?= $user['user_last_name'] ?></p>
