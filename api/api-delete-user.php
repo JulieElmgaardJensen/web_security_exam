@@ -7,6 +7,7 @@ try{
   _is_logged_in();
 
   $user_id = $_SESSION['user']['user_id'];
+  
   $db = _db();
   $q = $db->prepare('
     UPDATE users

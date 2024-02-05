@@ -2,8 +2,6 @@
 require_once __DIR__ . '/../_.php';
 require_once __DIR__ . '/_header.php';
 
-
-
 $user_id = $_GET['user_id'];
 
 _is_deleted();
@@ -17,8 +15,6 @@ $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
 $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
-
-
 
 ?>
 

@@ -2,6 +2,14 @@
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';  
 
+
+_is_logged_in();
+
+$user_id = $_GET['user_id'];
+
+_check_user_id($user_id);
+
+
 // TODO: _validate_user_id() in the master file
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');

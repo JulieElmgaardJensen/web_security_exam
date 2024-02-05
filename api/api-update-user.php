@@ -4,15 +4,16 @@ require_once __DIR__.'/../_.php';
 try{
   session_start();
 
-  _is_logged_in();
+  //_is_logged_in();
   
-  _validate_user_name();
-  _validate_user_last_name();
-  _validate_user_email();
-  _validate_user_password();
-  _validate_user_confirm_password();
+  // _validate_user_name();
+  // _validate_user_last_name();
+  // _validate_user_email();
+  // _validate_user_password();
+  // _validate_user_confirm_password();
 
   $user_id = $_SESSION['user']['user_id'];
+
   $db = _db();
   $q = $db->prepare('
     UPDATE users
