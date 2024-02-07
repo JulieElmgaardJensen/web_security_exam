@@ -4,6 +4,7 @@ require_once __DIR__.'/../_.php';
 try {
     _validate_user_name();
     _validate_user_last_name();
+    _validate_user_username();
     _validate_user_email();
     _validate_user_password();
     _validate_user_confirm_password();

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../_.php';
+$error_message = '';
 try{
 
   _validate_user_email();
@@ -10,7 +11,7 @@ try{
     SELECT * FROM users
     WHERE user_email = :user_email
   ');
-  //$q = $db->prepare('CALL login(:user_email)');
+
   $q->bindValue(':user_email', $_POST['user_email']);
   $q->execute();
   $user = $q->fetch();
@@ -19,7 +20,6 @@ try{
     throw new Exception('invalid credentials', 400);
   }
 
-  // Check if the found user has a valid password
   if( ! password_verify($_POST['user_password'], $user['user_password']) ){
     throw new Exception('wrong password', 400);
   }
@@ -45,7 +45,6 @@ try{
   }catch(Exception $ex){
     http_response_code(500);
     echo json_encode($ex);    
-    exit();
   }
 }
 

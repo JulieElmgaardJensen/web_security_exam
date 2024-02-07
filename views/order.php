@@ -35,7 +35,6 @@ if (!$order) {
       <li>Delivered by:  <a href="/user?user_id=<?= $order['user_id'] ?>"><?= $order['order_delivered_by_fk'] ?></a></li>
       <li>Created at: <?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></li>
       <li>Delivered at: <?= ($order['order_delivered_at'] == 0) ? 'Order not delivered' : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></li>
-      
     </ul>
   </div>
 

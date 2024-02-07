@@ -4,7 +4,7 @@ async function is_username_available(){
     method: "POST",
     body: new FormData(frm)
   })
-  if( ! conn.ok ){ // everything that is not a 2xx
+  if( ! conn.ok ){
     console.log("username not available")
     document.querySelector("#msg_username_not_available").classList.remove("hidden")
     return
@@ -20,7 +20,7 @@ async function is_email_available(){
     method: "POST",
     body: new FormData(frm)
   })
-  if( ! conn.ok ){ // everything that is not a 2xx
+  if( ! conn.ok ){ 
     console.log("email not available")
     document.querySelector("#msg_email_not_available").classList.remove("hidden")
     return
@@ -28,11 +28,11 @@ async function is_email_available(){
   console.log("email available")
 }
 
+
 //############################################################
 async function delete_user() {
   const frm = event.target
   console.log(frm)
-  //The connection will take time so we use await
   const conn = await fetch("api/api-admin-delete-user.php", {
     method : "POST",
     body : new FormData(frm)
@@ -42,26 +42,13 @@ async function delete_user() {
   frm.parentElement.remove() 
 }
 
-//############################################################
-// async function delete_own_user() {
-//   const frm = event.target
-//   console.log(frm)
-//   //The connection will take time so we use await
-//   const conn = await fetch("api/api-delete-user.php", {
-//     method : "POST",
-//     body : new FormData(frm)
-//   })
-//   const response = await conn.json()
-//   console.log(response)
-//   frm.parentElement.remove() 
-// }
 
+//############################################################
 async function delete_own_user() {
   const frm = event.target;
   console.log(frm);
   
   try {
-    // The connection will take time, so we use await
     const conn = await fetch("api/api-delete-user.php", {
       method: "POST",
       body: new FormData(frm),
@@ -71,7 +58,6 @@ async function delete_own_user() {
       throw new Error(`HTTP error! Status: ${conn.status}`);
     }
 
-    // Check if the response has content
     if (conn.status !== 204) {
       const response = await conn.json();
       console.log(response);
@@ -86,12 +72,13 @@ async function delete_own_user() {
 
 }
 
+
+//############################################################
 function confirm_delete_own_user() {
   const confirmed = confirm("Are you sure you wanna leave FoodFly? 😔");
   if (confirmed) {
     delete_own_user();
   } else {
-
   }
 }
 
@@ -100,7 +87,6 @@ function confirm_delete_own_user() {
 async function delete_order() {
   const frm = event.target
   console.log(frm)
-  //The connection will take time so we use await
   const conn = await fetch("api/api-admin-delete-order.php", {
     method : "POST",
     body : new FormData(frm)
@@ -109,6 +95,7 @@ async function delete_order() {
   console.log(response)
   frm.parentElement.remove() 
 }
+
 
 //############################################################
 async function toggle_blocked(user_id, user_is_blocked){
@@ -131,6 +118,7 @@ async function toggle_blocked(user_id, user_is_blocked){
   const data = await conn.text()
   console.log(data)
 }
+
 
 // ############################################################
 async function update_user(user_id) {
@@ -155,11 +143,8 @@ async function update_user(user_id) {
     })
     return
   }
-  
   alert('User updated!');
 }
-
-
 
 
 // ############################################################
@@ -171,8 +156,8 @@ async function signup() {
     body: new FormData(frm)
   })
 
-  // const data = await conn.text()
-  // console.log(data)
+  const data = await conn.text()
+  console.log(data)
 
   if (!conn.ok) {
     Swal.fire({
@@ -184,11 +169,7 @@ async function signup() {
     return
   }
 
-  const data = await conn.text()
-  console.log(data)
-
   location.href = "/login"
-
 }
 
 
@@ -202,7 +183,11 @@ async function login() {
     body: new FormData(frm),
   })
 
+  const data = await conn.json();
+  console.log(data);
+
   if (!conn.ok) {
+    alert("Login not succeced, try again");
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -212,19 +197,19 @@ async function login() {
     return;
   }
 
-  const data = await conn.json();
-  console.log(data);
 
   if(data.user_role === "admin") {
     location.href = `/users`;
   }else {  location.href = `/profile?user_id=${data.user_id}`;}
-
 }
+
 
 // ############################################################
 var timer_search = ''
+
 function search_users(){
   clearTimeout(timer_search)
+
   timer_search = setTimeout(async function(){ 
     const frm = document.querySelector("#frm_search")
     const url = frm.getAttribute('data-url')
@@ -252,17 +237,16 @@ function search_users(){
         query_results_container.insertAdjacentHTML('afterbegin', div_user);
       });
     } else {
-      // If no hits, display a message
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
-
   }, 500);
 }
 
+
 // ############################################################
 function search_orders(){
-  var timer_search = ''
   clearTimeout(timer_search)
+
   timer_search = setTimeout(async function(){ 
     const frm = document.querySelector("#frm_search")
     const url = frm.getAttribute('data-url')
@@ -291,20 +275,17 @@ function search_orders(){
         query_results_container.insertAdjacentHTML('afterbegin', div_order);
       });
     } else {
-      // If no hits, display a message
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
-
   }, 500);
 }
-
 
 
 // ############################################################
 function search_own_orders(){
   clearTimeout(timer_search)
-  timer_search = setTimeout(async function(){ 
 
+  timer_search = setTimeout(async function(){ 
     const frm = document.querySelector("#frm_search")
     const url = frm.getAttribute('data-url')
     console.log("URL: ", url)
@@ -331,18 +312,17 @@ function search_own_orders(){
         query_results_container.insertAdjacentHTML('afterbegin', div_order);
       });
     } else {
-      // If no hits, display a message
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
-
   }, 500);
 }
+
 
 // ############################################################
 function search_partners_orders(){
   clearTimeout(timer_search)
-  timer_search = setTimeout(async function(){ 
 
+  timer_search = setTimeout(async function(){ 
     const frm = document.querySelector("#frm_search")
     const url = frm.getAttribute('data-url')
     console.log("URL: ", url)
@@ -369,12 +349,11 @@ function search_partners_orders(){
         query_results_container.insertAdjacentHTML('afterbegin', div_order);
       });
     } else {
-      // If no hits, display a message
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
-
   }, 500);
 }
+
 
 // ############################################################
 async function search_orders_(){
@@ -414,6 +393,7 @@ async function search_partners(){
     const data = await conn.json()
     //console.log(data)
     document.querySelector("#query_results").innerHTML = ""
+
     data.forEach(partner => {
         let div_partner = `
         <div class="grid grid-cols-[100fr,100fr,50fr] p-2">
@@ -424,11 +404,14 @@ async function search_partners(){
         document.querySelector("#query_results").insertAdjacentHTML('afterbegin', div_partner)
     })
 }
+
+
 // ############################################################
 async function search_customers(){
     console.log('searching ...')
     const frm = event.target.form
     console.log(frm)
+
     const conn = await fetch("/api/api-search-customers.php", {
         method : "POST",
         body : new FormData(frm)

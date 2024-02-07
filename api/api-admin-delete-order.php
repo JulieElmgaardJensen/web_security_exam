@@ -2,8 +2,7 @@
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 try{
-
-    //Validate order_id
+    
     $order_id = $_POST['order_id'];
 
     $db = _db();
