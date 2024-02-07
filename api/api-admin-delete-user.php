@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 try{
 
-    //Validate user_id
     $user_id = $_POST['user_id'];
 
     $db = _db();

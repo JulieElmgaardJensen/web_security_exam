@@ -46,7 +46,6 @@ $orders = $q->fetchAll();
   </div>
 
 
-
   <?php foreach($orders as $order):?>
     <div class="grid grid-cols-9 w-full pt-6 text-left">
       <div><?= $order['order_id'] ?></div>
@@ -55,7 +54,7 @@ $orders = $q->fetchAll();
       <div><?= $order['order_amount_paid'] ?><span>kr.</span></div>
       <div><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
       <div><?= ($order['order_delivered_at'] == 0) ? 'Order not delivered' : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
-      <div><a href="/user?user_id=<?= $order['user_id'] ?>"><?= $order['order_delivered_by_fk'] ?></a></div>
+      <div><a href="/user?user_id=<?= $order['order_delivered_by_fk'] ?>"><?= $order['order_delivered_by_fk'] ?></a></div>
       
 
     <form onsubmit="delete_order(); return false">

@@ -40,13 +40,16 @@ require_once __DIR__.'/../_.php'
   <div class=" md:flex gap-4 ml-auto">
     
   <?php if( ! isset($_SESSION['user']) ): ?>
-    <a href="/login"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">Login</button></a>
-    <a href="/signup"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4">Signup</button></a>
-  <?php else: ?>
-    <a href="/profile?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 ml-auto">My profile</button></a>
-    <!-- <a href="/profile?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 ml-auto">My orders</button></a> -->
-    <a href="/logout"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 ml-auto">Log out</button></a>
-  <?php endif ?>  
+    <div class="sm:flex">
+    <a href="/login"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4 sm:text-sm sm:flex">Login</button></a>
+    <a href="/signup"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4 sm:text-sm sm:flex">Signup</button></a>
+    </div>
+    <?php else: ?>
+      <div class="sm:flex">
+    <a href="/profile?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex sm:py-1 ">My profile</button></a>
+    <a href="/logout"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex">Log out</button></a>
+    </div>
+    <?php endif ?>  
 
 
   </div>

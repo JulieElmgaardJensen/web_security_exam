@@ -712,13 +712,23 @@ video {
   grid-column-gap: 1rem;
 }
 
-.grid-cols-9 {
+.grid-cols-9_ {
   grid-template-columns: 80px 130px 143.75px 143.75px 143.75px 143.75px 143.75px 100px 80px;
   grid-column-gap: 1rem;
 }
 
-.grid-cols-9-users {
+.grid-cols-9 {
+  grid-template-columns:  5% 11% 11% 11% 15% 15% 11% 6% 5% ;
+  grid-column-gap: 1rem;
+}
+
+.grid-cols-9-users_ {
   grid-template-columns: 80px 130px 143.75px 90px 143.75px 250px 100px 90px 80px;
+  grid-column-gap: 1rem;
+}
+
+.grid-cols-9-users {
+  grid-template-columns: 5% 11% 12% 6% 15% 20% 10% 6% 5% ;
   grid-column-gap: 1rem;
 }
 
@@ -749,6 +759,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-screen-80 {
+  height: 80vh;
 }
 
 .min-h-screen {
@@ -843,6 +857,10 @@ video {
   overflow-y: visible;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .rounded-sm {
   border-radius: 0.25rem;
 }
@@ -861,6 +879,11 @@ video {
 
 .border {
   border-width: 1px;
+}
+
+.border-t-teal {
+  border-top: solid 1px;
+  border-color: rgb(153 246 228);
 }
 
 .border-slate-300 {
@@ -971,6 +994,16 @@ video {
   padding-right: 2rem;
 }
 
+.px-auto {
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.py-auto {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -1023,6 +1056,10 @@ video {
 
 .pt-36 {
   padding-top: 9rem;
+}
+
+.pt-46 {
+  padding-top: 12rem;
 }
 
 .pb-4 {
@@ -1159,6 +1196,7 @@ video {
   color: rgb(185 28 28 / var(--tw-text-opacity));
 }
 
+
 @media (prefers-color-scheme: dark) {
   .dark\:bg-zinc-200 {
     --tw-bg-opacity: 1;
@@ -1166,16 +1204,41 @@ video {
   }
 }
 
-@media (min-width: 640px) {
+@media (max-width: 768px) {
   .sm\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
 
   .sm\:text-8xl {
-    font-size: 6rem;
+    font-size: 3rem;
     line-height: 1;
   }
+
+  .sm\:mx-2 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .sm\:flex {
+    display: flex;
+  }
+
+  .sm\:py-1 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .sm\:px-2 {
+    margin-top: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
 }
 
 @media (min-width: 768px) {
@@ -1188,6 +1251,17 @@ video {
     padding-left: 3rem;
     padding-right: 3rem;
   }
+
+  .md\:grid-cols-9 {
+      grid-template-columns:  5% 11% 11% 11% 15% 15% 11% 6% 5% ;
+      grid-column-gap: 1rem;
+}
+
+.md\:overflow-x-auto {
+  width: 100vw;
+  overflow-x: auto;
+}
+
 }
 
 @media (min-width: 1024px) {

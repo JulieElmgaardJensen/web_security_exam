@@ -59,11 +59,12 @@ require_once __DIR__.'/_header.php';
     </div>
 
     <div class="grid">
-      <label for="">
-      <span class="text-gray-50">Address</span> 
+      <label for="" class="flex">
+      <span class="text-gray-50">Address</span>
+      <span class="ml-auto text-gray-50"><?= USER_ADDRESS_MIN ?> to <?= USER_ADDRESS_MAX ?> characters</span>
       </label>    
       <input name="user_address" type="text" 
-      data-validate="str" class="border rounded-md">
+      data-validate="str" data-min="<?= USER_ADDRESS_MIN ?>" data-max="<?= USER_ADDRESS_MAX ?>" class="border rounded-md">
     </div>
 
     <div class="grid">
@@ -71,7 +72,7 @@ require_once __DIR__.'/_header.php';
         <span class="text-gray-50">Password</span> 
         <span class="ml-auto text-gray-50"><?= USER_PASSWORD_MIN ?> to <?= USER_PASSWORD_MAX ?> characters</span>
       </label>   
-      <input name="user_password" type="text"
+      <input name="user_password" type="password"
       data-validate="str" data-min="<?= USER_PASSWORD_MIN ?>" data-max="<?= USER_PASSWORD_MAX ?>"
       class="border rounded-md">
     </div>
@@ -80,7 +81,7 @@ require_once __DIR__.'/_header.php';
       <label for="">
       <span class="text-gray-50">Confirm password</span> 
       </label>    
-      <input name="user_confirm_password" type="text"
+      <input name="user_confirm_password" type="password"
       data-validate="match" data-match-name="user_password"
       class="border rounded-md">
     </div>
@@ -89,9 +90,9 @@ require_once __DIR__.'/_header.php';
     <div class="grid">
     <span class="text-gray-50">Role</span> 
     <div class="flex text-gray-50"> 
-    <label for="user" class="flex justify-center pr-2">Customer</label><br>
+    <label for="user" class="pr-2 flex items-center">Customer</label><br>
     <input type="radio" id="user" name="user_role" value="user" class="flex pt-0">
-    <label for="partner" class="pl-4 pr-2">Partner</label><br>
+    <label for="partner" class="pl-4 pr-2 flex items-center">Partner</label><br>
     <input type="radio" id="partner" name="user_role" value="partner" class="flex pt-0">
 
     </div>  
