@@ -16,11 +16,11 @@ try{
 
     if( ! $email) {
         http_response_code(200);
-        echo json_encode(['info'=>"email available"]);
+        echo json_encode(['info'=>'email available']);
         exit();
     }else {
         http_response_code(400);
-        echo json_encode(['info'=>"email not available"]);
+        echo json_encode(['info'=>'email not available']);
     }
 
     echo json_encode(['info' => "$user_email"]);

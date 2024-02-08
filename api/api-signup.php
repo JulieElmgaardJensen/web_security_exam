@@ -65,7 +65,7 @@ try {
     $q->bindParam(':user_is_blocked', $user_is_blocked);
 
     $q->execute();
-    echo "Signed up";
+    echo 'Signed up';
     $insertedUserId = $db->lastInsertId();
 
     echo json_encode(['user_id' => $insertedUserId]);

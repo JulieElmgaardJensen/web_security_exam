@@ -194,17 +194,12 @@ function _is_logged_in() {
 // ##############################
 function _check_user_id($user_id) {
   if (!isset($_SESSION['user']['user_id'])) {
-      header("Location: /logout");
+      header('Location: /logout');
       exit();
   }
 
   if ($_SESSION['user']['user_id'] != $user_id) {
-      header("Location: /404");
+      header('Location: /404');
       exit();
   }
 }
-
-
-
-
-
