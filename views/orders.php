@@ -48,7 +48,7 @@ $orders = $q->fetchAll();
       <div><a href="/user?user_id=<?= $order['order_delivered_by_fk'] ?>"><?= $order['order_delivered_by_fk'] ?></a></div>
       
 
-    <form onsubmit="delete_order(); return false">
+    <form onsubmit="confirm_delete_order(); return false">
     <input class="hidden" name="order_id" type="text" value="<?= $order['order_id']?>">
     <button>🗑️</button>
     </form>

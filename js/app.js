@@ -42,6 +42,15 @@ async function delete_user() {
   frm.parentElement.remove() 
 }
 
+//############################################################
+function confirm_delete_user() {
+  const confirmed = confirm('This is a permanent delete, are you sure you want to continue?');
+  if (confirmed) {
+    delete_user();
+  } else {
+  }
+}
+
 
 //############################################################
 async function delete_own_user() {
@@ -94,6 +103,15 @@ async function delete_order() {
   const response = await conn.json()
   console.log(response)
   frm.parentElement.remove() 
+}
+
+//############################################################
+function confirm_delete_order() {
+  const confirmed = confirm('This is a permanent delete, are you sure you want to continue?');
+  if (confirmed) {
+    delete_order();
+  } else {
+  }
 }
 
 
