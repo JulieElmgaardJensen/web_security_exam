@@ -4,6 +4,11 @@ require_once __DIR__ . '/_header.php';
 
 $order_id = $_GET['order_id'];
 
+_is_admin();
+_is_deleted();
+_is_blocked();
+_is_logged_in();
+
 $db = _db();
 $q = $db->prepare(' SELECT * FROM orders, users, products 
                     WHERE order_id = :order_id 

@@ -4,8 +4,6 @@ require_once __DIR__.'/../_.php';
 try{
   session_start();
   
-  _check_user_id($user_id);
-
   _validate_user_name();
   _validate_user_last_name();
   _validate_user_address();
@@ -27,6 +25,7 @@ try{
   $q->bindValue(':user_address', $_POST['user_address']);
   $q->bindValue(':time', time());
   $q->bindValue(':user_id', $user_id);
+
   $q->execute();
   $counter = $q->rowCount();
 

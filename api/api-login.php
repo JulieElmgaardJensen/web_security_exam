@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../_.php';
-$error_message = '';
+
 try{
 
   _validate_user_email();

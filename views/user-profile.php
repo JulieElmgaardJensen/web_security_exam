@@ -9,7 +9,6 @@ _is_blocked();
 _is_logged_in();
 _check_user_id($user_id);
 
-// TODO: _validate_user_id() in the master file
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
 $q->bindValue(':user_id', $_GET['user_id']);
@@ -18,13 +17,6 @@ $user = $q->fetch();
 
 ?>
 
-
-
-<!-- <nav class="w-full bg-teal-200 text-gray-900 flex gap-4 p-6 md:px-12 lg:px-44">
- Lav if else ift rollen
-<a href="/">My profile</a>
-
-</nav> -->
 
 <main class="w-full px-4 md:px-12 lg:px-44 text-gray-50 font-arimo [&_input]:h-10 [&_input]:rounded-sm [&_input]:outline-none [&_input]:text-black">
 
@@ -51,13 +43,6 @@ $user = $q->fetch();
       <li>
         <p><?= $user['user_email'] ?></p>
       </li>
-      <!-- Skal nok også fjernes
-      <li>
-        <h3 class="text-xl pt-4">Password:</h3>
-      </li>
-      <li>
-        <p><?= $user['user_password'] ?></p>
-      </li> -->
     </ul>
 
     <div class="py-8 flex flex-row w-full">
@@ -95,13 +80,11 @@ $user = $q->fetch();
         ?>
     </div>
 
-      <h3 class="text-xl">See all the orders you need to delivery or already had delivered:</h3>
+      <h3 class="text-xl">See all the orders you need to deliver or already had delivered:</h3>
     <div class="w-full grid grid-cols-4-order pt-8 font-bold">
       <div class="">Order id</div>
       <div class="">Ordered at</div>
       <div class="">Delivered status</div>
-      <!-- Skal måske fjernes -->
-      <div class="">See order</div>
     </div>
 
     <?php else: ?>
@@ -115,8 +98,6 @@ $user = $q->fetch();
         <div class="">Order id</div>
         <div class="">Ordered at</div>
         <div class="">Delivered at</div>
-        <!-- Skal måske fjernes -->
-        <div class="">See order</div>
       </div>
     <?php endif; ?>
 
@@ -125,20 +106,11 @@ $user = $q->fetch();
       <?php if($_SESSION['user']['user_role'] === "partner"): ?>
         <div class=""><?= $order['order_id'] ?></div>
         <div class=""><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
-        <div class=""><?= ($order['order_delivered_at'] == 0) ? "You need to delivery this order" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?>        </div>
-        <a href="/order?order_id=<?= $order['order_id'] ?>" class="">
-          👁️
-        </a>
+        <div class=""><?= ($order['order_delivered_at'] == 0) ? "You need to deliver this order" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
         <?php else: ?>
         <div class=""><?= $order['order_id'] ?></div>
         <div class=""><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
-        <div class=""><?= ($order['order_delivered_at'] == 0) ? "Your order is on it's way! 🛵" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?>
-          
-        </div>
-          <!-- SKAL NOK FJERNES -->
-        <a href="/order?order_id=<?= $order['order_id'] ?>" class="">
-          👁️
-        </a>
+        <div class=""><?= ($order['order_delivered_at'] == 0) ? "Your order is on it's way! 🛵" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
         <?php endif; ?>
       </div>
     <?php endforeach ?>
