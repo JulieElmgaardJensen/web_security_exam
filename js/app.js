@@ -78,7 +78,6 @@ async function delete_own_user() {
   }
 
   location.href = "/logout"
-
 }
 
 
@@ -205,7 +204,6 @@ async function login() {
   console.log(data);
 
   if (!conn.ok) {
-    // alert("Login not succeced, try again");
     document.getElementById('login_error_message').innerHTML = 'Login not succeeded, please try again.';
     Swal.fire({
       icon: "error",
