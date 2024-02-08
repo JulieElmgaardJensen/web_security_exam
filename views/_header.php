@@ -23,9 +23,7 @@ require_once __DIR__.'/../_.php'
   </title>
 </head>
 
-
 <body class="w-full h-screen text-base font-armino font-light bg-black">
-
 
 <nav class="flex items-center w-full h-16 px-4 md:px-12 lg:px-44 text-gray-50">
   <a href="/" class="text-xl font-exo ">FoodFly</a>
@@ -38,7 +36,6 @@ require_once __DIR__.'/../_.php'
   </div>
   
   <div class=" md:flex gap-4 ml-auto">
-    
   <?php if( ! isset($_SESSION['user']) ): ?>
     <div class="sm:flex">
     <a href="/login"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4 sm:text-sm sm:flex">Login</button></a>
@@ -50,8 +47,6 @@ require_once __DIR__.'/../_.php'
     <a href="/logout"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex">Log out</button></a>
     </div>
     <?php endif ?>  
-
-
   </div>
 </nav>
 
@@ -59,7 +54,6 @@ require_once __DIR__.'/../_.php'
 
 <?php 
     if (isset($_SESSION['user'])) {
-      // User is logged in, display navigation based on user role
       if ($_SESSION['user']['user_role'] === 'admin') {
           echo '<a class="my-auto" href="/users">Users</a>
                 <a class="my-auto" href="/orders">Orders</a>';

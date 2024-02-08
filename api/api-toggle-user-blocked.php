@@ -1,7 +1,7 @@
 <?php
-
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
+
 try{
     
     $user_id = $_GET['user_id'];

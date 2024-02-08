@@ -4,16 +4,17 @@ require_once __DIR__ . '/_header.php';
 
 $user_id = $_GET['user_id'];
 
-// TODO: _validate_user_id() in the master file
+_is_admin();
+_is_deleted();
+_is_blocked();
+_is_logged_in();
+
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
-//$q = $db->prepare('CALL get_user_by_id(:user_id)');
 $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
-_is_logged_in();
-_is_admin();
 ?>
 
 

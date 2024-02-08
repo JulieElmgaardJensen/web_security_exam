@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
+
 try{
     _validate_user_username();
     

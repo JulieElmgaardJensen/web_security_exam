@@ -1,8 +1,8 @@
 <?php 
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
+
 try{
-    //TODO: validate $_POST['user_name_or_last_name']
 
     $db = _db();
     $q = $db->prepare(' SELECT *
