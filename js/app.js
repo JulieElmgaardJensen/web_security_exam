@@ -1,3 +1,4 @@
+// ############################################################
 async function is_username_available(){
   const frm = event.target.form
   const conn = await fetch('api/api-username-available.php', {
@@ -159,7 +160,7 @@ async function update_user(user_id) {
     })
     return
   }
-  alert('User updated!');
+  alert('Your profile is now updated!');
 };
 
 
@@ -229,15 +230,19 @@ function search_users(){
     const frm = document.querySelector('#frm_search')
     const url = frm.getAttribute('data-url')
     console.log('URL: ', url)
+    // await fetch-anmodning til den angivne API data url med formen
     const conn = await fetch(`/api/${url}`, {
       method : "POST",
       body : new FormData(frm)
     })
+    //konvertere til json
     const data = await conn.json()
 
+    //Opretter variabel til id'et
     const query_results_container = document.querySelector('#query_results');
     query_results_container.innerHTML = '';
 
+    // hvis der er data, vil den loop igennem hver user og give den div_user 
     if (data.length > 0) {
       data.forEach(user => {
         let div_user = `
@@ -249,9 +254,11 @@ function search_users(){
           </div>
           </a>
         `;
+        //indsætter div_user html'en i container variablen
         query_results_container.insertAdjacentHTML('afterbegin', div_user);
       });
     } else {
+      //hvis ingen resultater vises denne besked
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
@@ -367,82 +374,4 @@ function search_partners_orders(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
-};
-
-
-// ############################################################
-async function search_orders_(){
-  console.log('searching ...')
-  const frm = event.target.form
-  console.log(frm)
-  const conn = await fetch('/api/api-search-orders.php', {
-      method : "POST",
-      body : new FormData(frm)
-  })
-  const data = await conn.json()
-  //console.log(data)
-  document.querySelector('#query_results').innerHTML = '';
-
-  data.forEach(order => {
-      let div_order = `
-      <div class="grid grid-cols-4 p-2">
-        <div class="">${order.order_id}</div>
-        <div class="">${order.user_name}</div>
-        <div class="">${order.user_last_name}</div>
-        <div class="">${order.product_name}</div>
-      </div>
-      `
-      document.querySelector('#query_results').insertAdjacentHTML('afterbegin', div_order);
-  })
-};
-
-
-// ############################################################
-async function search_partners(){
-    console.log('searching ...')
-    const frm = event.target.form
-    console.log(frm)
-    const conn = await fetch('/api/api-search-partners.php', {
-        method : "POST",
-        body : new FormData(frm)
-    })
-    const data = await conn.json();
-    //console.log(data)
-    document.querySelector('#query_results').innerHTML = '';
-
-    data.forEach(partner => {
-        let div_partner = `
-        <div class="grid grid-cols-[100fr,100fr,50fr] p-2">
-          <div class="">${partner.user_name}</div>
-          <div class="">${partner.user_last_name}</div>
-        </div>
-        `
-        document.querySelector('#query_results').insertAdjacentHTML('afterbegin', div_partner);
-    })
-};
-
-
-// ############################################################
-async function search_customers(){
-    console.log('searching ...')
-    const frm = event.target.form
-    console.log(frm)
-
-    const conn = await fetch('/api/api-search-customers.php', {
-        method : "POST",
-        body : new FormData(frm)
-    })
-    const data = await conn.json()
-    //console.log(data)
-    document.querySelector('#query_results').innerHTML = '';
-
-    data.forEach(customer => {
-        let div_customer = `
-        <div class="grid grid-cols-[100fr,100fr,50fr] p-2">
-          <div class="">${customer.user_name}</div>
-          <div class="">${customer.user_last_name}</div>
-        </div>
-        `
-        document.querySelector('#query_results').insertAdjacentHTML('afterbegin', div_customer);
-    })
 };

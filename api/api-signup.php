@@ -37,7 +37,7 @@ try {
         :user_deleted_at, 
         :user_is_blocked)
     ');
-
+    
     $user_id = null;
     $user_name = $_POST['user_name'];
     $user_last_name = $_POST['user_last_name'];
@@ -51,6 +51,7 @@ try {
     $user_deleted_at = 0;
     $user_is_blocked = 0;
 
+    //we use the placeholders to secure, efficient, and maintain the database queries
     $q->bindParam(':user_id', $user_id);
     $q->bindParam(':user_name', $user_name);
     $q->bindParam(':user_last_name', $user_last_name);

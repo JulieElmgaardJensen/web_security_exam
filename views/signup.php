@@ -5,6 +5,7 @@ require_once __DIR__.'/_header.php';
 
 
 <main class="w-full min-h-screen mt-2">
+  <!-- validate er en js function fra validator.js med callback til signup i app.js -->
   <form onsubmit="validate(signup); return false" class="flex flex-col px-4 lg:w-1/3 mx-auto gap-4 [&_input]:h-10 [&_input]:rounded-md [&_input]:outline-none [&_input]:text-black">
 
   <div class="grid">

@@ -7,7 +7,7 @@ function _db(){
     $user_name = "root";
     $user_password = "root";
 	  $db_connection = "mysql:host=localhost; dbname=company; charset=utf8mb4";
-	
+		// $db_connection = 'sqlite:'.__DIR__.'/database/data.sqlite';
 	  $db_options = array(
 		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -20,17 +20,22 @@ function _db(){
 }
 
 // ##############################
+// 
 define('USER_NAME_MIN', 2);
 define('USER_NAME_MAX', 20);
 function _validate_user_name(){
 
+  //makes the error message - Concatenation 
   $error = 'user_name min '.USER_NAME_MIN.' max '.USER_NAME_MAX;
 
+  //checks if the user_name is set in the POST - else exception
   if(!isset($_POST['user_name'])){ 
     throw new Exception($error, 400); 
   }
+  // remove spaces 
   $_POST['user_name'] = trim($_POST['user_name']);
 
+  //check the lenght of the input - else exception
   if( strlen($_POST['user_name']) < USER_NAME_MIN ){
     throw new Exception($error, 400);
   }
@@ -104,12 +109,14 @@ function _validate_user_address(){
 }
 
 // ##############################
+//validates the user_email from the post request and trim the input
 function _validate_user_email(){
   $error = 'user_email invalid';
   if(!isset($_POST['user_email'])){ 
     throw new Exception($error, 400); 
   }
   $_POST['user_email'] = trim($_POST['user_email']); 
+  //validates the email
   if( ! filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL) ){
     throw new Exception($error, 400); 
   }

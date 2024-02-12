@@ -11,6 +11,8 @@ try{
                         OR user_last_name LIKE :user_last_name
                         OR user_id LIKE :user_id
                         ');
+    //binds the value from the post array in the search form
+    // I use a mix of post and get (post-postback) because i want to show the result on the same time as the user write in the form
     $q->bindValue(':user_name', "%{$_POST['query']}%");
     $q->bindValue(':user_last_name', "%{$_POST['query']}%");
     $q->bindValue(':user_id', "%{$_POST['query']}%");

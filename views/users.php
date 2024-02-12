@@ -2,6 +2,7 @@
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';
 
+//checks if the user has the permision to see this page
 _is_admin();
 _is_deleted();
 _is_blocked();
@@ -36,6 +37,7 @@ $users = $sql->fetchAll();
     <span class="font-bold" for="">See user</span>
   </div>
 
+  <!-- loops over each user -->
   <?php foreach($users as $user):?>
     <div class="grid grid-cols-9-users w-full pt-6 text-left">
 
@@ -45,6 +47,7 @@ $users = $sql->fetchAll();
       <div><?= $user['user_role'] ?></div>
       <div><?= $user['user_address'] ?></div>
       <div><?= $user['user_email'] ?></div>
+      <!-- ternary operator that helps with identify the user is blocked status -->
       <button class="flex p-0 button_update_blocked_user <?= $user['user_is_blocked'] == 0 ? "text-green-500" : "text-red-500" ?>"
               onclick="toggle_blocked(<?= $user['user_id'] ?>, <?= $user['user_is_blocked'] ?>)">
               <?= $user['user_is_blocked'] == 0 ? "Unblocked" : "Blocked"?>
