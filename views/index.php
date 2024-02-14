@@ -8,8 +8,8 @@
 
     <div class="">
       <div class="flex pt-4">
-            <button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4 sm:text-sm"><a href="login">Customer</a></button>
-            <button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4 mx-4 sm:mx-2 sm:text-sm"><a href="login">Partner</a></button>
+        <a href="login"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4 sm:text-sm">Customer</button></a>
+        <a href="login"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4 mx-4 sm:mx-2 sm:text-sm">Partner</button></a>
       </div>
       <div class="flex py-2">
             <p class="text-sm text-gray-50 opacity-60"><a href="signup">Sign up?</a></p>

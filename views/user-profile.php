@@ -6,10 +6,12 @@ require_once __DIR__ . '/_header.php';
 $user_id = $_GET['user_id'];
 
 //checks if the user has the permision to see this page
+
+_check_user_id($user_id);
+_is_logged_in();
 _is_deleted();
 _is_blocked();
-_is_logged_in();
-_check_user_id($user_id);
+
 
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
@@ -62,10 +64,11 @@ $user = $q->fetch();
   <?php
   $db = _db();
   if($_SESSION['user']['user_role'] === "partner"){
-    $q = $db->prepare('SELECT * FROM orders WHERE order_delivered_by_fk = :user_id');
+    //$q = $db->prepare('SELECT * FROM orders WHERE order_delivered_by_fk = :user_id');
+    $q = $db->prepare('SELECT o.*, u.user_address FROM orders o INNER JOIN users u ON o.order_user_fk = u.user_id WHERE o.order_delivered_by_fk = :user_id');
 
   } else {
-    $q = $db->prepare('SELECT * FROM orders WHERE order_user_fk = :user_id');
+    $q = $db->prepare('SELECT * FROM orders, products WHERE order_user_fk = :user_id AND order_product_fk = product_id');
   }
   $q->bindValue(':user_id', $_GET['user_id']);
   $q->execute();
@@ -85,8 +88,9 @@ $user = $q->fetch();
       <h3 class="text-xl">See all the orders you need to deliver or already had delivered:</h3>
     <div class="w-full grid grid-cols-4-order pt-8 font-bold">
       <div class="">Order id</div>
+      <div class="">Delivery address</div>
       <div class="">Ordered at</div>
-      <div class="">Delivered status</div>
+      <div class="">Delivery status</div>
     </div>
 
     <?php else: ?>
@@ -98,6 +102,7 @@ $user = $q->fetch();
       <h3 class="text-xl">See all your orders here!</h3>
       <div class="w-full grid grid-cols-4-order pt-8 font-bold">
         <div class="">Order id</div>
+        <div class="">Product ordered</div>
         <div class="">Ordered at</div>
         <div class="">Delivered at</div>
       </div>
@@ -107,10 +112,12 @@ $user = $q->fetch();
       <div class="w-full grid grid-cols-4-order pt-4">
       <?php if($_SESSION['user']['user_role'] === "partner"): ?>
         <div class=""><?= $order['order_id'] ?></div>
+        <div class=""><?= $order['user_address'] ?></div>
         <div class=""><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
         <div class=""><?= ($order['order_delivered_at'] == 0) ? "You need to deliver this order" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
         <?php else: ?>
         <div class=""><?= $order['order_id'] ?></div>
+        <div class=""><?= $order['product_name'] ?></div>
         <div class=""><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
         <div class=""><?= ($order['order_delivered_at'] == 0) ? "Your order is on it's way! 🛵" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
         <?php endif; ?>

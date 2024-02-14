@@ -17,8 +17,11 @@ $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
+if (!$user) {
+  header('Location: /users');
+  exit();
+}
 ?>
-
 
 <main class="w-full h-16 px-4 md:px-12 lg:px-44 text-gray-50">
   <div class="pt-2"> 

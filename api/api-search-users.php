@@ -13,6 +13,8 @@ try{
                         ');
     //binds the value from the post array in the search form
     // I use a mix of post and get (post-postback) because i want to show the result on the same time as the user write in the form
+    //%{$_POST['query']}% is a like operator - used to match string from the input field in the form
+    //query --> værdien af inputfeltet
     $q->bindValue(':user_name', "%{$_POST['query']}%");
     $q->bindValue(':user_last_name', "%{$_POST['query']}%");
     $q->bindValue(':user_id', "%{$_POST['query']}%");

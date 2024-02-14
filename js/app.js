@@ -11,7 +11,7 @@ async function is_username_available(){
     return
   }
   console.log('username available')
-};
+}
 
 
 // ############################################################
@@ -27,7 +27,7 @@ async function is_email_available(){
     return
   }
   console.log('email available')
-};
+}
 
 
 //############################################################
@@ -41,7 +41,7 @@ async function delete_user() {
   const response = await conn.json()
   console.log(response)
   frm.parentElement.remove() 
-};
+}
 
 //############################################################
 function confirm_delete_user() {
@@ -50,7 +50,7 @@ function confirm_delete_user() {
     delete_user();
   } else {
   }
-};
+}
 
 
 //############################################################
@@ -78,7 +78,7 @@ async function delete_own_user() {
     console.error('Error deleting user:', error);
   }
   location.href = '/logout'
-};
+}
 
 
 //############################################################
@@ -88,7 +88,7 @@ function confirm_delete_own_user() {
     delete_own_user();
   } else {
   }
-};
+}
 
 
 //############################################################
@@ -102,7 +102,7 @@ async function delete_order() {
   const response = await conn.json()
   console.log(response)
   frm.parentElement.remove() 
-};
+}
 
 //############################################################
 function confirm_delete_order() {
@@ -111,7 +111,7 @@ function confirm_delete_order() {
     delete_order();
   } else {
   }
-};
+}
 
 
 //############################################################
@@ -134,7 +134,8 @@ async function toggle_blocked(user_id, user_is_blocked){
   const conn = await fetch(`api/api-toggle-user-blocked.php?user_id=${user_id}&user_is_blocked=${user_is_blocked}`)
   const data = await conn.text()
   console.log(data)
-};
+
+}
 
 
 // ############################################################
@@ -154,14 +155,19 @@ async function update_user(user_id) {
   if (!conn.ok) {
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a href="">Why do I have this issue?</a>'
+      title: 'Something went wrong!',
     })
     return
   }
-  alert('Your profile is now updated!');
-};
+  Swal.fire({
+    toast: 'false',
+    icon: 'success',
+    timer: '2000',
+    title: 'Your profile is now updated!',
+  })
+  console.log('User is updated')
+  //alert('Your profile is now updated!');
+}
 
 
 // ############################################################
@@ -179,14 +185,12 @@ async function signup() {
   if (!conn.ok) {
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a href="">Why do I have this issue?</a>'
+      title: 'Sorry.. We had trouble signing you up. Please try again!',
     })
     return
   }
   location.href = '/login'
-};
+}
 
 
 // ############################################################
@@ -206,9 +210,7 @@ async function login() {
     document.getElementById('login_error_message').innerHTML = 'Login not succeeded, please try again.';
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a href="">Why do I have this issue?</a>',
+      title: 'Ups, something went wrong in the login, please try again!',
     });
     return;
   };
@@ -217,7 +219,7 @@ async function login() {
   if(data.user_role === 'admin') {
     location.href = `/users`;
   }else {  location.href = `/profile?user_id=${data.user_id}`;}
-};
+}
 
 
 // ############################################################
@@ -262,7 +264,7 @@ function search_users(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
-};
+}
 
 
 // ############################################################
@@ -300,7 +302,7 @@ function search_orders(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
-};
+}
 
 
 // ############################################################
@@ -337,7 +339,7 @@ function search_own_orders(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
-};
+}
 
 
 // ############################################################
@@ -374,4 +376,4 @@ function search_partners_orders(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
-};
+}

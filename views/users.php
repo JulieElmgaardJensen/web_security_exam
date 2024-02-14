@@ -24,7 +24,6 @@ $users = $sql->fetchAll();
     ?>
   </div>
 
-
   <div class="grid grid-cols-9-users w-full pt-4 text-left">
     <span class="font-bold" for="">User id</span>
     <span class="font-bold" for="">User name and lastname</span>
@@ -37,7 +36,6 @@ $users = $sql->fetchAll();
     <span class="font-bold" for="">See user</span>
   </div>
 
-  <!-- loops over each user -->
   <?php foreach($users as $user):?>
     <div class="grid grid-cols-9-users w-full pt-6 text-left">
 
@@ -47,7 +45,6 @@ $users = $sql->fetchAll();
       <div><?= $user['user_role'] ?></div>
       <div><?= $user['user_address'] ?></div>
       <div><?= $user['user_email'] ?></div>
-      <!-- ternary operator that helps with identify the user is blocked status -->
       <button class="flex p-0 button_update_blocked_user <?= $user['user_is_blocked'] == 0 ? "text-green-500" : "text-red-500" ?>"
               onclick="toggle_blocked(<?= $user['user_id'] ?>, <?= $user['user_is_blocked'] ?>)">
               <?= $user['user_is_blocked'] == 0 ? "Unblocked" : "Blocked"?>

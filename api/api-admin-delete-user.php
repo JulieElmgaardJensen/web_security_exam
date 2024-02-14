@@ -1,6 +1,5 @@
-<!-- Handles the delete user from the database by the HTTP POST request from an admin -->
-
 <?php
+//Handles the delete user from the database by the HTTP POST request from an admin
 //the returned will be json
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';

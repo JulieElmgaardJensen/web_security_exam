@@ -2,9 +2,9 @@
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
-session_start();
-
 try{
+    session_start();
+
     $db = _db();
     $q = $db->prepare(' SELECT *
                         FROM orders AS o

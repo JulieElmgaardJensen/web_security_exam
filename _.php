@@ -158,7 +158,7 @@ function _validate_user_confirm_password(){
 // ##############################
 function _is_partner(){
   if($_SESSION['user']['user_role'] !== 'partner'){
-    header('Location: /');
+    header('Location: /404');
     exit();
   };
 }
@@ -166,7 +166,7 @@ function _is_partner(){
 // ##############################
 function _is_admin(){
   if($_SESSION['user']['user_role'] !== 'admin'){
-    header('Location: /');
+    header('Location: /404');
     exit();
   };
 }
@@ -209,4 +209,13 @@ function _check_user_id($user_id) {
       header('Location: /404');
       exit();
   }
+}
+
+// ##############################
+function _if_logged_in_redirect(){
+  if(isset($_SESSION['user'])){
+    $user_id = $_SESSION['user']['user_id'];
+    header("Location: /profile?user_id=$user_id");
+    exit();
+  };
 }

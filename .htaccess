@@ -3,6 +3,7 @@ RewriteEngine On
 #####
 #RewriteRule ^app.js$           js/app.js [NC,L]
 RewriteRule ^validator.js$      js/validator.js [NC,L]
+ErrorDocument 404 /404
 
 
 #####
