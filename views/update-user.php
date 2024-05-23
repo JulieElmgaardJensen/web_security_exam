@@ -2,11 +2,13 @@
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';  
 
-
+//checks if the user has the permision to see this page
 _is_logged_in();
 
+// Gets the user id from the url
 $user_id = $_GET['user_id'];
 
+//checks the user id - so we only can update our own profile
 _check_user_id($user_id);
 
 

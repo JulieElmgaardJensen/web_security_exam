@@ -2,8 +2,10 @@
 require_once __DIR__ . '/../_.php';
 require_once __DIR__ . '/_header.php';
 
+// Gets the user id from the url
 $user_id = $_GET['user_id'];
 
+//checks if the user has the permision to see this page
 _is_admin();
 _is_deleted();
 _is_blocked();
@@ -15,11 +17,15 @@ $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
+if (!$user) {
+  header('Location: /users');
+  exit();
+}
 ?>
 
-
 <main class="w-full h-16 px-4 md:px-12 lg:px-44 text-gray-50">
-  <div class="pt-2">  
+  <div class="pt-2"> 
+     <!--js function that makes it possible to go back in the history  -->
     <button onclick="history.go(-1)" class="hover:text-teal-200 bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4">Go back</button>
   </div>  
   <div>
@@ -32,6 +38,7 @@ $user = $q->fetch();
       <li>Address: <?= $user['user_address'] ?></li>
       <li>Role: <?= ucfirst($user['user_role']) ?></li>
       <li>Created at: <?= date("Y-m-d H:i:s", substr($user['user_created_at'], 0, 10)) ?></li>
+      <!-- ternary operator - shows the date if its not 0 -->
       <li>Updated at: <?= ($user['user_updated_at'] == 0) ? '0' : date("Y-m-d H:i:s", substr($user['user_updated_at'], 0, 10)) ?></li>
       <li>Deleted at: <?= ($user['user_deleted_at'] == 0) ? '0' : date("Y-m-d H:i:s", substr($user['user_deleted_at'], 0, 10)) ?></li>
       <li>Status: <?= $user['user_is_blocked'] == 0 ? "Unblocked" : "Blocked"?></li>

@@ -1,3 +1,5 @@
+<!-- if i use get here it passes the query in the url - if i use post it does not pass it  -->
+<!-- I use a mix of post and get (post-postback) because i want to show the result on the same time as the user write in the form-->
 <form data-url="<?= $frm_search_url ?>" id="frm_search" action="/search-results" method="GET" class="flex gap-4 items-center w-full">
 <label for="" class="">Search for user</label>  
 <input name="query" type="text" 

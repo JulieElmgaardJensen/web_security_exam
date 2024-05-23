@@ -2,6 +2,7 @@
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';
 
+//checks if the user has the permision to see this page
 _is_admin();
 _is_deleted();
 _is_blocked();
@@ -22,7 +23,6 @@ $users = $sql->fetchAll();
       include_once __DIR__.'/_form-search-users.php' 
     ?>
   </div>
-
 
   <div class="grid grid-cols-9-users w-full pt-4 text-left">
     <span class="font-bold" for="">User id</span>
@@ -50,7 +50,7 @@ $users = $sql->fetchAll();
               <?= $user['user_is_blocked'] == 0 ? "Unblocked" : "Blocked"?>
       </button>
 
-      <form onsubmit="delete_user(); return false">
+      <form onsubmit="confirm_delete_user(); return false">
         <input class="hidden" name="user_id" type="text" value="<?= $user['user_id']?>">
         <button>🗑️</button>
       </form>

@@ -1,24 +1,25 @@
 RewriteEngine On
 
 #####
-#RewriteRule ^app.js$          js/app.js [NC,L]
-RewriteRule ^validator.js$    js/validator.js [NC,L]
+#RewriteRule ^app.js$           js/app.js [NC,L]
+RewriteRule ^validator.js$      js/validator.js [NC,L]
+ErrorDocument 404 /404
 
 
 #####
-RewriteRule ^$                views/index.php [NC,L]
-RewriteRule ^signup$          views/signup.php [NC,L]
-RewriteRule ^login$           views/login.php [NC,L]
-RewriteRule ^logout$           views/logout.php [NC,L]
-RewriteRule ^users$           views/users.php [NC,L]
-RewriteRule ^user$            views/user.php [NC,L]
+RewriteRule ^$                  views/index.php [NC,L]
+RewriteRule ^signup$            views/signup.php [NC,L]
+RewriteRule ^login$             views/login.php [NC,L]
+RewriteRule ^logout$            views/logout.php [NC,L]
+RewriteRule ^users$             views/users.php [NC,L]
+RewriteRule ^user$              views/user.php [NC,L]
 RewriteRule ^orders$            views/orders.php [NC,L]
-RewriteRule ^order$            views/order.php [NC,L]
-RewriteRule ^books$            views/books.php [NC,L]
-RewriteRule ^loans$            views/loans.php [NC,L]
-RewriteRule ^customers$            views/customers.php [NC,L]
-RewriteRule ^profile$            views/user-profile.php [NC,L]
-RewriteRule ^profile/update$            views/update-user.php [NC,L]
-RewriteRule ^blocked$            views/blocked.php [NC,L]
-RewriteRule ^deleted$            views/deleted.php [NC,L]
-RewriteRule ^404$            views/404.php [NC,L]
+RewriteRule ^order$             views/order.php [NC,L]
+RewriteRule ^books$             views/books.php [NC,L]
+RewriteRule ^loans$             views/loans.php [NC,L]
+RewriteRule ^customers$         views/customers.php [NC,L]
+RewriteRule ^profile$           views/user-profile.php [NC,L]
+RewriteRule ^profile/update$    views/update-user.php [NC,L]
+RewriteRule ^blocked$           views/blocked.php [NC,L]
+RewriteRule ^deleted$           views/deleted.php [NC,L]
+RewriteRule ^404$               views/404.php [NC,L]

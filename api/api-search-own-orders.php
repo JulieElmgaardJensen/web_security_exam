@@ -2,9 +2,10 @@
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
-session_start();
-
 try{
+
+    session_start();
+
     $db = _db();
     $q = $db->prepare(' SELECT *
                         FROM orders AS o
@@ -16,6 +17,8 @@ try{
                             OR p.product_name LIKE :product_name)
                             AND u.user_id = :user_id
                         ');
+    //binds the value from the post array in the search form
+    // I use a mix of post and get (post-postback) because i want to show the result on the same time as the user write in the form
     $q->bindValue(':order_id', "%{$_POST['query']}%");
     $q->bindValue(':user_name', "%{$_POST['query']}%");
     $q->bindValue(':user_last_name', "%{$_POST['query']}%");

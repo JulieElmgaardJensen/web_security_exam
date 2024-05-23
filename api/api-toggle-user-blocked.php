@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
 try{
-    
+    //uses get to retreive the information about the user
     $user_id = $_GET['user_id'];
     $user_is_blocked = $_GET['user_is_blocked'];
 

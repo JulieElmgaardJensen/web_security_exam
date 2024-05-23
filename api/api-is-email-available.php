@@ -3,8 +3,10 @@ header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
 try{
+
     _validate_user_email();
     
+    //using $_POST because we get a post request from the user in the form with the HTTP POST 
     $user_email = $_POST['user_email'];
 
     $db = _db();
@@ -14,13 +16,14 @@ try{
     
     $email = $sql->fetchAll();
 
+    //if the email isent in the system its ok - if it is the email is not availeble
     if( ! $email) {
         http_response_code(200);
-        echo json_encode(['info'=>"email available"]);
+        echo json_encode(['info'=>'email available']);
         exit();
     }else {
         http_response_code(400);
-        echo json_encode(['info'=>"email not available"]);
+        echo json_encode(['info'=>'email not available']);
     }
 
     echo json_encode(['info' => "$user_email"]);

@@ -1,6 +1,8 @@
 <?php 
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';
+
+_if_logged_in_redirect();
 ?>
 
 

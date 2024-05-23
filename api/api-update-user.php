@@ -1,13 +1,15 @@
 <?php
+header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
 try{
   session_start();
   
+  //validate the inputs we can update
   _validate_user_name();
   _validate_user_last_name();
   _validate_user_address();
-
+  //uses the session user_id - because we update the logged in user
   $user_id = $_SESSION['user']['user_id'];
 
   $db = _db();
@@ -29,6 +31,7 @@ try{
   $q->execute();
   $counter = $q->rowCount();
 
+  //if there is no rows that are affected the user is not updated
   if( $counter != 1 ){
     throw new Exception('could not update user', 500);
   }

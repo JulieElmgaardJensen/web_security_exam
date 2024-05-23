@@ -1,11 +1,14 @@
 <?php
+//Handles the delete user from the database by the HTTP POST request from an admin
+//the returned will be json
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
 try{
-
+    //defines the user id from the HTTP POST request
     $user_id = $_POST['user_id'];
 
+    //uses the db function to connect to the database
     $db = _db();
     $sql = $db->prepare('DELETE FROM users WHERE user_id = :user_id');
     $sql->bindValue(':user_id', $user_id);
