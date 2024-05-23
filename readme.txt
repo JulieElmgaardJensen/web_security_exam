@@ -1,1 +1,1 @@
-Web Development Exam project by Julie Elmgaard Jensen
+Web Security project by Emilie Lenschau Hansen & Julie Elmgaard Jensen
