@@ -420,5 +420,12 @@ async function add_order_comment() {
     })
     return
   }
-  // location.href = '/login'
+  Swal.fire({
+    toast: 'false',
+    icon: 'success',
+    timer: '2000',
+    title: 'Your comment is now created!',
+  })
+  console.log('Comment is updated')
+
 }

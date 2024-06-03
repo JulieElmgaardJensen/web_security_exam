@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 function _db(){
 	try{
     $user_name = "root";
-    $user_password = '';
+    $user_password = 'root';
 	  $db_connection = "mysql:host=localhost; dbname=company; charset=utf8mb4";
 		// $db_connection = 'sqlite:'.__DIR__.'/database/data.sqlite';
 	  $db_options = array(

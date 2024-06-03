@@ -104,7 +104,7 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
     </div>
 
       <h3 class="text-xl">See all the orders you need to deliver or already had delivered:</h3>
-    <div class="w-full grid grid-cols-5-order pt-8 font-bold">
+    <div class="w-full grid grid-cols-6-order pt-8 font-bold">
       <div class="">Order id</div>
       <div class="">Delivery address</div>
       <div class="">Ordered at</div>
@@ -119,7 +119,7 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
         ?>
       </div>
       <h3 class="text-xl">See all your orders here!</h3>
-      <div class="w-full grid grid-cols-6 pt-8 font-bold">
+      <div class="w-full grid grid-cols-6-order pt-8 font-bold">
         <div class="">Order id</div>
         <div class="">Product ordered</div>
         <div class="">Ordered at</div>
@@ -130,7 +130,7 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
     <?php endif; ?>
 
     <?php foreach ($orders as $order) : ?>
-      <div class="w-full grid grid-cols-6 pt-4">
+      <div class="w-full grid grid-cols-6-order pt-4">
       <?php if($_SESSION['user']['user_role'] === "partner"): ?>
         <div class=""><?= $order['order_id'] ?></div>
         <div class=""><?= $order['user_address'] ?></div>
