@@ -20,7 +20,7 @@ function _db(){
 }
 
 // ##############################
-// 
+
 define('USER_NAME_MIN', 2);
 define('USER_NAME_MAX', 20);
 function _validate_user_name(){
@@ -29,8 +29,8 @@ function _validate_user_name(){
   $error = 'user_name min '.USER_NAME_MIN.' max '.USER_NAME_MAX;
 
   //checks if the user_name is set in the POST - else exception
-  if(!isset($_POST['user_name'])){ 
-    throw new Exception($error, 400); 
+  if(!isset($_POST['user_name'])){
+    throw new Exception($error, 400);
   }
   // remove spaces 
   $_POST['user_name'] = trim($_POST['user_name']);
@@ -218,4 +218,12 @@ function _if_logged_in_redirect(){
     header("Location: /profile?user_id=$user_id");
     exit();
   };
+}
+
+
+function _validate_user_image(){
+  // Check for errors in uploaded file
+  if ($_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
+    throw new Exception('Error uploading image', 400);
+  }
 }
