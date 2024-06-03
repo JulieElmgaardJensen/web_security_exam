@@ -22,7 +22,7 @@ $user = $q->fetch();
 
 
 <main class="w-full min-h-screen mt-2">
-  <form onsubmit="update_user(); return false" class="flex flex-col px-4 lg:w-1/3 mx-auto gap-4 [&_input]:h-10 [&_input]:rounded-md [&_input]:outline-none [&_input]:text-black">
+  <form onsubmit="update_user(); return false" enctype="multipart/form-data" class="flex flex-col px-4 lg:w-1/3 mx-auto gap-4 [&_input]:h-10 [&_input]:rounded-md [&_input]:outline-none [&_input]:text-black">
 
   <div class="grid">
   <h2 class="font-arimo text-3xl text-gray-50 pb-4">Update your informations</h2>
@@ -40,7 +40,7 @@ $user = $q->fetch();
         <span class="text-gray-50">Last name</span> 
         <span class="ml-auto text-gray-50"><?= USER_LAST_NAME_MIN ?> to <?= USER_LAST_NAME_MAX ?> characters</span>
       </label>
-      <label for="" class="ml-auto"></label>    
+      <label for="" class="ml-auto"></label>
       <input id="user_last_name" name="user_last_name" type="text"
       data-validate="str" data-min="<?= USER_LAST_NAME_MIN ?>" data-max="<?= USER_LAST_NAME_MAX ?>"
       class="border rounded-md" value="<?=$user['user_last_name']?>">
@@ -50,9 +50,17 @@ $user = $q->fetch();
       <label for="" class="flex">
       <span class="text-gray-50">Address</span>
       <span class="ml-auto text-gray-50"><?= USER_ADDRESS_MIN ?> to <?= USER_ADDRESS_MAX ?> characters</span>
-      </label>    
+      </label>
       <input name="user_address" type="text" 
       data-validate="str" data-min="<?= USER_ADDRESS_MIN ?>" data-max="<?= USER_ADDRESS_MAX ?>" class="border rounded-md" value="<?=$user['user_address']?>">
+    </div>
+
+    <div class="grid text-gray-50">
+      <label for="" class="flex">
+        <span class="text-gray-50">Update profile image</span>
+      </label>
+      <input type="file" name="user_image" id="user_image" accept="image/*"
+      class="text-gray-50" value="<?=$user['user_image']?>">
     </div>
 
     <button class="w-full h-10 bg-teal-200 text-gray-900 rounded-md py-2 px-8">Update</button>

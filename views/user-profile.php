@@ -19,12 +19,22 @@ $q->bindValue(':user_id', $_GET['user_id']);
 $q->execute();
 $user = $q->fetch();
 
+// Assuming you have retrieved and sanitized the file name from the uploaded file
+// $filename = basename($_FILES['user_image']);
+
+// echo $filename;
+// // Construct the relative path from the document root of your website
+// $user_image_path = '/api/uploads/' . $filename;
+
+$user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
 ?>
 
 
 <main class="w-full px-4 md:px-12 lg:px-44 text-gray-50 font-arimo [&_input]:h-10 [&_input]:rounded-sm [&_input]:outline-none [&_input]:text-black">
 
   <div class="" id="profile">
+    <div class="flex">
+    <div>
     <h1 class="text-4xl pt-20">Hi <?= $user['user_name'] ?> 👋 </h1>
     <h3 class="text-xl pt-4">Profile information</h3>
     <h4 class="text-l pt-4"><?= ucfirst($user['user_role']) ?></h4>
@@ -48,7 +58,15 @@ $user = $q->fetch();
         <p><?= $user['user_email'] ?></p>
       </li>
     </ul>
-
+    </div>
+    <div class="absolute pt-10 right-0 pr-10">
+    <?php if (!empty($user_image_path)) : ?>
+        <img src="/api/<?php echo $user_image_path; ?>" alt="User Image" class="rounded-full w-15 h-15">
+    <?php else : ?>
+      <img src="/api/uploads/default_image.png" alt="User Image" class="rounded-full w-15 h-15">
+    <?php endif; ?>
+    </div>
+    </div>
     <div class="py-8 flex flex-row w-full">
     <a href="profile/update?user_id=<?= $user['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
         Edit

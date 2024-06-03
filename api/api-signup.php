@@ -2,6 +2,7 @@
 header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
+
 try {
     _validate_user_name();
     _validate_user_last_name();
@@ -9,6 +10,38 @@ try {
     _validate_user_email();
     _validate_user_password();
     _validate_user_confirm_password();
+    _validate_user_image();
+
+//     // Check if file is uploaded
+// if (!isset($_FILES['user_image'])) {
+//     throw new Exception('No image uploaded', 400);
+// }
+
+// // Check for errors in uploaded file
+// if ($_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
+//     throw new Exception('Error uploading image', 400);
+// }
+
+$user_image_path = __DIR__ . '/uploads/community.png';
+
+// Define the upload directory relative to the document root
+$upload_dir = '/uploads/';
+
+// Check if an image is uploaded and update $user_image_path if necessary
+if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
+    // Get the basename of the uploaded file
+    $filename = basename($_FILES['user_image']['name']);
+    // Construct the full path where the file will be moved
+    $full_path = __DIR__ . $upload_dir . $filename;
+
+    // Move the uploaded file to the desired directory
+    if (!move_uploaded_file($_FILES['user_image']['tmp_name'], $full_path)) {
+        throw new Exception('Failed to move uploaded file', 500);
+    }
+
+    // Construct the relative path to be stored in the database
+    $user_image_path = $upload_dir . $filename;
+}
 
     $db = _db();
     $q = $db->prepare('INSERT INTO  users 
@@ -20,6 +53,7 @@ try {
                                     user_email, 
                                     user_password, 
                                     user_role, 
+                                    user_image, 
                                     user_created_at, 
                                     user_updated_at, 
                                     user_deleted_at, 
@@ -32,7 +66,8 @@ try {
         :user_address,
         :user_email, 
         :user_password, 
-        :user_role,
+        :user_role, 
+        :user_image, 
         :user_created_at, 
         :user_updated_at, 
         :user_deleted_at, 
@@ -61,6 +96,7 @@ try {
     $q->bindParam(':user_email', $user_email);
     $q->bindParam(':user_password', $user_password);
     $q->bindParam(':user_role', $user_role);
+    $q->bindParam(':user_image', $user_image_path);
     $q->bindParam(':user_created_at', $user_created_at);
     $q->bindParam(':user_updated_at', $user_updated_at);
     $q->bindParam(':user_deleted_at', $user_deleted_at);

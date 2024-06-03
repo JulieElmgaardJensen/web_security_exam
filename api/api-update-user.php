@@ -12,12 +12,31 @@ try{
   //uses the session user_id - because we update the logged in user
   $user_id = $_SESSION['user']['user_id'];
 
+  $upload_dir = '/uploads/';
+
+// Check if an image is uploaded and update $user_image_path if necessary
+if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
+    // Get the basename of the uploaded file
+    $filename = basename($_FILES['user_image']['name']);
+    // Construct the full path where the file will be moved
+    $full_path = __DIR__ . $upload_dir . $filename;
+
+    // Move the uploaded file to the desired directory
+    if (!move_uploaded_file($_FILES['user_image']['tmp_name'], $full_path)) {
+        throw new Exception('Failed to move uploaded file', 500);
+    }
+
+    // Construct the relative path to be stored in the database
+    $user_image_path = $upload_dir . $filename;
+}
+
   $db = _db();
   $q = $db->prepare('
     UPDATE users
     SET user_name = :user_name,
     user_last_name = :user_last_name,
     user_address = :user_address,
+    user_image = :user_image,
     user_updated_at = :time
     WHERE user_id = :user_id
   ');
@@ -25,6 +44,8 @@ try{
   $q->bindValue(':user_name', $_POST['user_name']);
   $q->bindValue(':user_last_name', $_POST['user_last_name']);
   $q->bindValue(':user_address', $_POST['user_address']);
+  $q->bindValue(':user_address', $_POST['user_address']);
+  $q->bindParam(':user_image', $user_image_path);
   $q->bindValue(':time', time());
   $q->bindValue(':user_id', $user_id);
 
