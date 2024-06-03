@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Feb 08, 2024 at 10:24 AM
--- Server version: 5.7.39
--- PHP Version: 7.4.33
+-- Vært: 127.0.0.1
+-- Genereringstid: 03. 06 2024 kl. 11:46:32
+-- Serverversion: 10.4.32-MariaDB
+-- PHP-version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 --
--- Procedures
+-- Procedurer
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_users` ()   SELECT * FROM users ORDER BY user_name$$
 
@@ -36,7 +36,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Struktur-dump for tabellen `orders`
 --
 
 CREATE TABLE `orders` (
@@ -46,35 +46,37 @@ CREATE TABLE `orders` (
   `order_amount_paid` int(10) UNSIGNED NOT NULL,
   `order_ordered_at` char(10) NOT NULL,
   `order_delivered_at` char(10) NOT NULL,
-  `order_delivered_by_fk` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `order_delivered_by_fk` bigint(20) UNSIGNED NOT NULL,
+  `order_comment` varchar(255) DEFAULT NULL,
+  `order_is_private` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Data dump for tabellen `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_user_fk`, `order_product_fk`, `order_amount_paid`, `order_ordered_at`, `order_delivered_at`, `order_delivered_by_fk`) VALUES
-(7, 48, 5, 150, '1704828940', '1704898217', 32),
-(14, 48, 2, 200, '1707238193', '', 32),
-(15, 45, 3, 150, '1707301588', '', 36),
-(16, 92, 5, 200, '1707321617', '1707321663', 36),
-(17, 92, 4, 150, '1707321617', '', 32),
-(18, 44, 2, 2000, '1707321969', '1707321969', 93),
-(19, 31, 3, 129, '1707321969', '', 93);
+INSERT INTO `orders` (`order_id`, `order_user_fk`, `order_product_fk`, `order_amount_paid`, `order_ordered_at`, `order_delivered_at`, `order_delivered_by_fk`, `order_comment`, `order_is_private`) VALUES
+(7, 48, 5, 150, '1704828940', '1704898217', 32, NULL, 0),
+(14, 48, 2, 200, '1707238193', '', 32, NULL, 0),
+(15, 45, 3, 150, '1707301588', '', 36, NULL, 0),
+(16, 92, 5, 200, '1707321617', '1707321663', 36, NULL, 0),
+(17, 92, 4, 150, '1707321617', '', 32, NULL, 0),
+(18, 44, 2, 2000, '1707321969', '1707321969', 93, NULL, 0),
+(19, 31, 3, 129, '1707321969', '', 93, NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `partners`
+-- Struktur-dump for tabellen `partners`
 --
 
 CREATE TABLE `partners` (
   `user_partner_fk` bigint(20) UNSIGNED NOT NULL,
   `partner_geo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `partners`
+-- Data dump for tabellen `partners`
 --
 
 INSERT INTO `partners` (`user_partner_fk`, `partner_geo`) VALUES
@@ -85,17 +87,17 @@ INSERT INTO `partners` (`user_partner_fk`, `partner_geo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Struktur-dump for tabellen `products`
 --
 
 CREATE TABLE `products` (
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `product_name` varchar(50) NOT NULL,
   `product_price` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `products`
+-- Data dump for tabellen `products`
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`) VALUES
@@ -109,16 +111,16 @@ INSERT INTO `products` (`product_id`, `product_name`, `product_price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Struktur-dump for tabellen `roles`
 --
 
 CREATE TABLE `roles` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
   `role_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `roles`
+-- Data dump for tabellen `roles`
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`) VALUES
@@ -129,8 +131,8 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `roles_partner_view`
--- (See below for the actual view)
+-- Stand-in-struktur for visning `roles_partner_view`
+-- (Se nedenfor for det aktuelle view)
 --
 CREATE TABLE `roles_partner_view` (
 `user_id` bigint(20) unsigned
@@ -140,8 +142,8 @@ CREATE TABLE `roles_partner_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `roles_user_view`
--- (See below for the actual view)
+-- Stand-in-struktur for visning `roles_user_view`
+-- (Se nedenfor for det aktuelle view)
 --
 CREATE TABLE `roles_user_view` (
 `user_id` bigint(20) unsigned
@@ -151,7 +153,7 @@ CREATE TABLE `roles_user_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur-dump for tabellen `users`
 --
 
 CREATE TABLE `users` (
@@ -167,16 +169,16 @@ CREATE TABLE `users` (
   `user_updated_at` char(11) NOT NULL,
   `user_deleted_at` char(11) NOT NULL,
   `user_is_blocked` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Data dump for tabellen `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_last_name`, `user_username`, `user_address`, `user_email`, `user_password`, `user_role`, `user_created_at`, `user_updated_at`, `user_deleted_at`, `user_is_blocked`) VALUES
 (31, 'Rahsaan', 'Greenfelder', 'everett.ullrich', '7128 Nicole Springs\nFerryport, NM 95808', 'ktorp@yahoo.com', '$2y$10$Su8vmOqIq3ajUCjDc2uBcu4xPxeSeesHg6RJ1751NtscOmGg726X6', 'user', '1701435188', '0', '0', 0),
 (32, 'Gwen', 'Deckow', 'deon.daniel', '1265 Ferne Grove Apt. 222\nWatersside, GA 24049', 'kacie90@bailey.com', '$2y$10$6RaAOPC.vxv/rq94B51hRunmmt21AxEfMsGyi.iBuj6ARYlZP3B72', 'partner', '1701435188', '0', '0', 0),
-(36, 'Enid', 'Feeney', 'lorine.nikolaus', '724 Hane Square\nZoeyfort, NY 22897', 'dion96@jacobi.net', '$2y$10$jv.3R3sCXgGw90nfRV0QCesKCGU5Q0qGHCBWV8kcI9dv3DA2e5vue', 'partner', '1701435189', '0', '0', 0),
+(36, 'Enid', 'Feeney', 'lorine.nikolaus', '724 Hane Square\nZoeyfort, NY 22897', 'dion96@jacobi.net', '$2y$10$jv.3R3sCXgGw90nfRV0QCesKCGU5Q0qGHCBWV8kcI9dv3DA2e5vue', 'partner', '1701435189', '0', '0', 1),
 (40, 'Reanna', 'Bauch', 'nigel.doyle', '6235 Brad Loaf Apt. 528\nNorth Sylvia, OR 63050-0088', 'wyatt.beier@gmail.com', '$2y$10$B.SU4JKmZTwsGqsfNYY40.q66uvkLXKTfsUSVyaHhLrzPmxWiGUp2', 'user', '1704379254', '0', '0', 1),
 (41, 'Evie', 'Harvey', 'roger.nikolaus', '756 Streich Loop Suite 989\nWest Vern, WI 97509-0561', 'jan.dare@powlowski.org', '$2y$10$ye1vj2kYfGCUNuDRQgAYjO1z4QfmtUQfmuYv3OPaHONvDJGyQd9le', 'user', '1704379254', '0', '0', 1),
 (42, 'Marcelina', 'Bartell', 'vebert', '68923 Bartoletti Mall Suite 488\nNew Lynn, VT 23261', 'cpacocha@gmail.com', '$2y$10$a4dSUUJ6vqiUBykwAuSQnuocJUrjLtyW09mvafRw69vkH8FWv4rLu', 'user', '1704379254', '0', '0', 0),
@@ -200,27 +202,27 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_last_name`, `user_username`, 
 -- --------------------------------------------------------
 
 --
--- Structure for view `roles_partner_view`
+-- Struktur for visning `roles_partner_view`
 --
 DROP TABLE IF EXISTS `roles_partner_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roles_partner_view`  AS SELECT `users`.`user_id` AS `user_id`, `users`.`user_role` AS `user_role` FROM `users` WHERE (`users`.`user_role` = 'partner')  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roles_partner_view`  AS SELECT `users`.`user_id` AS `user_id`, `users`.`user_role` AS `user_role` FROM `users` WHERE `users`.`user_role` = 'partner' ;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `roles_user_view`
+-- Struktur for visning `roles_user_view`
 --
 DROP TABLE IF EXISTS `roles_user_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roles_user_view`  AS SELECT `users`.`user_id` AS `user_id`, `users`.`user_role` AS `user_role` FROM `users` WHERE (`users`.`user_role` = 'user')  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roles_user_view`  AS SELECT `users`.`user_id` AS `user_id`, `users`.`user_role` AS `user_role` FROM `users` WHERE `users`.`user_role` = 'user' ;
 
 --
--- Indexes for dumped tables
+-- Begrænsninger for dumpede tabeller
 --
 
 --
--- Indexes for table `orders`
+-- Indeks for tabel `orders`
 --
 ALTER TABLE `orders`
   ADD UNIQUE KEY `order_id` (`order_id`),
@@ -229,25 +231,25 @@ ALTER TABLE `orders`
   ADD KEY `orders_ibfk_4` (`order_user_fk`);
 
 --
--- Indexes for table `partners`
+-- Indeks for tabel `partners`
 --
 ALTER TABLE `partners`
   ADD UNIQUE KEY `user_partner_fk` (`user_partner_fk`);
 
 --
--- Indexes for table `products`
+-- Indeks for tabel `products`
 --
 ALTER TABLE `products`
   ADD UNIQUE KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `roles`
+-- Indeks for tabel `roles`
 --
 ALTER TABLE `roles`
   ADD UNIQUE KEY `role_id` (`role_id`);
 
 --
--- Indexes for table `users`
+-- Indeks for tabel `users`
 --
 ALTER TABLE `users`
   ADD UNIQUE KEY `user_id` (`user_id`),
@@ -257,39 +259,39 @@ ALTER TABLE `users`
   ADD KEY `user_email` (`user_email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Brug ikke AUTO_INCREMENT for slettede tabeller
 --
 
 --
--- AUTO_INCREMENT for table `orders`
+-- Tilføj AUTO_INCREMENT i tabel `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `products`
+-- Tilføj AUTO_INCREMENT i tabel `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- Tilføj AUTO_INCREMENT i tabel `roles`
 --
 ALTER TABLE `roles`
   MODIFY `role_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- Tilføj AUTO_INCREMENT i tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- Constraints for dumped tables
+-- Begrænsninger for dumpede tabeller
 --
 
 --
--- Constraints for table `orders`
+-- Begrænsninger for tabel `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`order_product_fk`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
@@ -297,7 +299,7 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`order_user_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `partners`
+-- Begrænsninger for tabel `partners`
 --
 ALTER TABLE `partners`
   ADD CONSTRAINT `partners_ibfk_1` FOREIGN KEY (`user_partner_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;

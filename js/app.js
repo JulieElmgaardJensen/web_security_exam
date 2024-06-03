@@ -137,6 +137,29 @@ async function toggle_blocked(user_id, user_is_blocked){
 
 }
 
+//############################################################
+async function toggle_private(order_id, order_is_private){
+  console.log('order_id', order_id);
+  console.log('order_is_private', order_is_private)
+
+  const button = event.target;
+
+  if (order_is_private == 0) {
+      button.innerHTML = 'Private';
+      button.classList.remove('text-green-500');
+      button.classList.add('text-red-500');
+  } else {
+      button.innerHTML = 'Public';
+      button.classList.remove('text-red-500');
+      button.classList.add('text-green-500');
+  }
+
+  const conn = await fetch(`api/api-toggle-order-private.php?order_id=${order_id}&order_is_private=${order_is_private}`)
+  const data = await conn.text()
+  console.log(data)
+
+}
+
 
 // ############################################################
 async function update_user(user_id) {
@@ -376,4 +399,26 @@ function search_partners_orders(){
       query_results_container.innerHTML = `<div class="p-2"><p>No results found.</p></div>`;
     }
   }, 500);
+}
+
+// ############################################################
+async function add_order_comment() {
+  const frm = event.target
+  console.log(frm)
+  const conn = await fetch('/api/api-add-order-comment.php', {
+    method: "POST",
+    body: new FormData(frm)
+  })
+
+  const data = await conn.text()
+  console.log(data)
+
+  if (!conn.ok) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Sorry.. We had trouble making your comment. Please try again!',
+    })
+    return
+  }
+  // location.href = '/login'
 }

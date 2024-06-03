@@ -76,7 +76,7 @@ $user = $q->fetch();
   ?>
 
   <div class="h-screen" id="orders">
-    <h2 class="text-3xl pt-4">Orders</h2>
+    <h2 class="text-3xl pt-4">Orders</h2> 
     <div class="py-8">
     <?php if($_SESSION['user']['user_role'] === "partner"): ?>
         <?php
@@ -86,11 +86,12 @@ $user = $q->fetch();
     </div>
 
       <h3 class="text-xl">See all the orders you need to deliver or already had delivered:</h3>
-    <div class="w-full grid grid-cols-4-order pt-8 font-bold">
+    <div class="w-full grid grid-cols-5-order pt-8 font-bold">
       <div class="">Order id</div>
       <div class="">Delivery address</div>
       <div class="">Ordered at</div>
       <div class="">Delivery status</div>
+      <div class="">Comment from user</div>
     </div>
 
     <?php else: ?>
@@ -100,16 +101,18 @@ $user = $q->fetch();
         ?>
       </div>
       <h3 class="text-xl">See all your orders here!</h3>
-      <div class="w-full grid grid-cols-4-order pt-8 font-bold">
+      <div class="w-full grid grid-cols-6 pt-8 font-bold">
         <div class="">Order id</div>
         <div class="">Product ordered</div>
         <div class="">Ordered at</div>
         <div class="">Delivered at</div>
+        <div class="">Comment</div>
+        <div class="">Visability</div>
       </div>
     <?php endif; ?>
 
     <?php foreach ($orders as $order) : ?>
-      <div class="w-full grid grid-cols-4-order pt-4">
+      <div class="w-full grid grid-cols-6 pt-4">
       <?php if($_SESSION['user']['user_role'] === "partner"): ?>
         <div class=""><?= $order['order_id'] ?></div>
         <div class=""><?= $order['user_address'] ?></div>
@@ -119,7 +122,29 @@ $user = $q->fetch();
         <div class=""><?= $order['order_id'] ?></div>
         <div class=""><?= $order['product_name'] ?></div>
         <div class=""><?= date("Y-m-d H:i:s", substr($order['order_ordered_at'], 0, 10)) ?></div>
-        <div class=""><?= ($order['order_delivered_at'] == 0) ? "Your order is on it's way! 🛵" : date("Y-m-d H:i:s", substr($order['order_delivered_at'], 0, 10)) ?></div>
+        <div class="">
+          <?php if (empty($order['order_delivered_at'])) : ?>
+            Your order is on its way! 🛵
+          <?php else : ?>
+            <?= date("Y-m-d H:i:s", strtotime($order['order_delivered_at'])) ?>
+          <?php endif; ?>
+        </div>
+        <div class="">
+          <?php if (isset($order['order_comment']) && $order['order_comment'] !== NULL) : ?>
+            <?= $order['order_comment'] ?>
+          <?php else : ?>
+            <a href="profile/comment?user_id=<?= $user['user_id']?>&order_id=<?= $order['order_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
+              Create
+            </button></a>
+          <?php endif; ?>
+        </div>
+        
+        <!-- Private/Public order -->
+        <button class="flex p-0 button_update_private_order <?= $order['order_is_private'] == 0 ? "text-green-500" : "text-red-500" ?>"
+              onclick="toggle_private(<?= $order['order_id'] ?>, <?= $order['order_is_private'] ?>)">
+              <?= $order['order_is_private'] == 0 ? "Public" : "Private"?>
+        </button>
+
         <?php endif; ?>
       </div>
     <?php endforeach ?>

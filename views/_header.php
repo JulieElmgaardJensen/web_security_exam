@@ -41,6 +41,9 @@ require_once __DIR__.'/../_.php'
     </div>
     <?php else: ?>
       <div class="sm:flex">
+      <a href="profile/all_orders?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
+        See all orders in system
+      </button></a>
     <a href="/profile?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex sm:py-1 ">My profile</button></a>
     <a href="/logout"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex">Log out</button></a>
     </div>
