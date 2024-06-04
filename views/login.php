@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once __DIR__.'/../_.php';
 require_once __DIR__.'/_header.php';
 
@@ -14,14 +14,14 @@ _if_logged_in_redirect();
 
       <label for="">
         <span class="text-gray-50">Email</span>
-      </label>    
+      </label>
       <input name="user_email" type="text" data-validate="email" class="border rounded-md">
     </div>
 
     <div class="grid">
       <label for="">
         <span class="text-gray-50">Password</span>
-      </label>    
+      </label>
       <input name="user_password" type="password" data-validate="str" data-min="<?= USER_PASSWORD_MIN ?>" data-max="<?= USER_PASSWORD_MAX ?>" class="border rounded-md">
     </div>
     <div class="text-gray-50" id="login_error_message"></div>

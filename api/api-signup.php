@@ -12,17 +12,7 @@ try {
     _validate_user_confirm_password();
     _validate_user_image();
 
-//     // Check if file is uploaded
-// if (!isset($_FILES['user_image'])) {
-//     throw new Exception('No image uploaded', 400);
-// }
-
-// // Check for errors in uploaded file
-// if ($_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
-//     throw new Exception('Error uploading image', 400);
-// }
-
-$user_image_path = __DIR__ . '/uploads/community.png';
+$user_image_path = __DIR__ . '/uploads/default_image.png';
 
 // Define the upload directory relative to the document root
 $upload_dir = '/uploads/';
@@ -74,13 +64,15 @@ if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
         :user_is_blocked)
     ');
     
+    $options = ['cost' => 11];
+
     $user_id = null;
     $user_name = $_POST['user_name'];
     $user_last_name = $_POST['user_last_name'];
     $user_username = $_POST['user_username'];
     $user_address = $_POST['user_address'];
     $user_email = $_POST['user_email'];
-    $user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
+    $user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT, $options);
     $user_role = $_POST['user_role'];
     $user_created_at = time();
     $user_updated_at = 0;

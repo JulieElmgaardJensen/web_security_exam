@@ -103,7 +103,7 @@ _if_logged_in_redirect();
       <label for="" class="flex">
         <span class="text-gray-50">Upload profile image</span>
       </label>
-      <input type="file" name="user_image" id="user_image" accept="image/*"
+      <input type="file" name="user_image" id="user_image" accept="image/png, image/jpeg"
       class="text-gray-50">
     </div>
 

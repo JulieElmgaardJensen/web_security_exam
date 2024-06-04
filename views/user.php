@@ -24,10 +24,10 @@ if (!$user) {
 ?>
 
 <main class="w-full h-16 px-4 md:px-12 lg:px-44 text-gray-50">
-  <div class="pt-2"> 
+  <div class="pt-2">
      <!--js function that makes it possible to go back in the history  -->
     <button onclick="history.go(-1)" class="hover:text-teal-200 bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4">Go back</button>
-  </div>  
+  </div>
   <div>
     <h1 class="font-arimo text-4xl py-4"><?= ucfirst($user['user_role']) ?></h1>
     <ul>
@@ -42,6 +42,7 @@ if (!$user) {
       <li>Updated at: <?= ($user['user_updated_at'] == 0) ? '0' : date("Y-m-d H:i:s", substr($user['user_updated_at'], 0, 10)) ?></li>
       <li>Deleted at: <?= ($user['user_deleted_at'] == 0) ? '0' : date("Y-m-d H:i:s", substr($user['user_deleted_at'], 0, 10)) ?></li>
       <li>Status: <?= $user['user_is_blocked'] == 0 ? "Unblocked" : "Blocked"?></li>
+      <li>User image: <?= $user['user_image'] ?></li>
     </ul>
   </div>
 

@@ -41,9 +41,9 @@ require_once __DIR__.'/../_.php'
     </div>
     <?php else: ?>
       <div class="sm:flex">
-      <a href="all_orders?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
+      <!-- <a href="all_orders?user_id=//$_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
         See all orders in system
-      </button></a>
+      </button> -->
     <a href="/profile?user_id=<?= $_SESSION['user']['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex sm:py-1 ">My profile</button></a>
     <a href="/logout"><button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 ml-auto sm:text-sm sm:flex">Log out</button></a>
     </div>
@@ -58,8 +58,9 @@ require_once __DIR__.'/../_.php'
       if ($_SESSION['user']['user_role'] === 'admin') {
           echo '<a class="my-auto" href="/users">Users</a>
                 <a class="my-auto" href="/orders">Orders</a>';
-      }elseif ($_SESSION['user']['user_role'] === 'partner') {
-
+      }elseif ($_SESSION['user']['user_role'] === 'partner' || $_SESSION['user']['user_role'] === 'user' ) {
+        $userId = $_SESSION['user']['user_id'];
+        echo '<a class="my-auto" href="all_orders?user_id=' . $userId . '">See all orders in system</a>';
       }
   }
   ?>

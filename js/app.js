@@ -241,7 +241,12 @@ async function login() {
 
   if(data.user_role === 'admin') {
     location.href = `/users`;
-  }else {  location.href = `/profile?user_id=${data.user_id}`;}
+    updateLastActivity();
+  }else {  
+    location.href = `/profile?user_id=${data.user_id}`;
+    updateLastActivity();
+  }
+
 }
 
 
@@ -428,4 +433,32 @@ async function add_order_comment() {
   })
   console.log('Comment is updated')
 
+}
+
+
+// ##################################
+let lastActivity = new Date().getTime();
+
+document.addEventListener('mousemove', updateLastActivity);
+document.addEventListener('keydown', updateLastActivity);
+document.addEventListener('scroll', updateLastActivity);
+
+function updateLastActivity() {
+  lastActivity = new Date().getTime();
+}
+
+function checkInactivity() {
+  const currentTime = new Date().getTime();
+  const inactivityTime = currentTime - lastActivity;
+  const inactivityMinutes = inactivityTime / (1000 * 60);
+
+  if (inactivityMinutes >= 30) {
+    window.location.href = '/logout';
+  }
+}
+
+setInterval(checkInactivity, 30000);
+
+function updateLastActivity() {
+  lastActivity = new Date().getTime();
 }

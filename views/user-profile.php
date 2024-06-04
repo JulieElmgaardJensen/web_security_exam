@@ -68,7 +68,7 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
     </div>
     </div>
     <div class="py-8 flex flex-row w-full">
-    <a href="profile/update?user_id=<?= $user['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
+    <a href="update?user_id=<?= $user['user_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
         Edit
       </button></a>
       <form onsubmit="confirm_delete_own_user(); return false" class="w-1/4">
@@ -151,7 +151,7 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
           <?php if (isset($order['order_comment']) && $order['order_comment'] !== NULL) : ?>
             <?= $order['order_comment'] ?>
           <?php else : ?>
-            <a href="profile/comment?user_id=<?= $user['user_id']?>&order_id=<?= $order['order_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
+            <a href="comment?user_id=<?= $user['user_id']?>&order_id=<?= $order['order_id'] ?>"><button class="bg-teal-200 text-gray-900 rounded-3xl py-2 px-8 my-4">
               Create
             </button></a>
           <?php endif; ?>

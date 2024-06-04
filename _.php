@@ -32,7 +32,7 @@ function _validate_user_name(){
   if(!isset($_POST['user_name'])){
     throw new Exception($error, 400);
   }
-  // remove spaces 
+  // remove spaces
   $_POST['user_name'] = trim($_POST['user_name']);
 
   //check the lenght of the input - else exception
@@ -52,8 +52,8 @@ function _validate_user_last_name(){
 
   $error = 'user_last_name min '.USER_LAST_NAME_MIN.' max '.USER_LAST_NAME_MAX;
 
-  if(!isset($_POST['user_last_name'])){ 
-    throw new Exception($error, 400); 
+  if(!isset($_POST['user_last_name'])){
+    throw new Exception($error, 400);
   }
   $_POST['user_last_name'] = trim($_POST['user_last_name']);
 
@@ -73,8 +73,8 @@ function _validate_user_username(){
 
   $error = 'user_username min '.USER_USERNAME_MIN.' max '.USER_USERNAME_MAX;
 
-  if(!isset($_POST['user_username'])){ 
-    throw new Exception($error, 400); 
+  if(!isset($_POST['user_username'])){
+    throw new Exception($error, 400);
   }
   $_POST['user_username'] = trim($_POST['user_username']);
 
@@ -112,13 +112,13 @@ function _validate_user_address(){
 //validates the user_email from the post request and trim the input
 function _validate_user_email(){
   $error = 'user_email invalid';
-  if(!isset($_POST['user_email'])){ 
-    throw new Exception($error, 400); 
+  if(!isset($_POST['user_email'])){
+    throw new Exception($error, 400);
   }
-  $_POST['user_email'] = trim($_POST['user_email']); 
+  $_POST['user_email'] = trim($_POST['user_email']);
   //validates the email
   if( ! filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL) ){
-    throw new Exception($error, 400); 
+    throw new Exception($error, 400);
   }
 }
 
@@ -189,7 +189,6 @@ function _is_deleted() {
     }
 }
 
-
 // ##############################
 function _is_logged_in() {
   if (!isset($_SESSION['user'])) {
@@ -220,10 +219,37 @@ function _if_logged_in_redirect(){
   };
 }
 
-
 function _validate_user_image(){
+
+$image_path = $_FILES['user_image']['tmp_name'];
+$image_size = filesize($image_path);
+$image_info = finfo_open(FILEINFO_MIME_TYPE);
+$image_type = finfo_file($image_info, $image_path);
+$image_error = 'Error adding image';
+
+  if (!isset($_FILES['user_image'])){
+    exit($image_error);
+  }
+
+  if ($image_size === 0) {
+    exit($image_error);
+  }
+  //3 MB
+  if ($image_size > 3145728) {
+    exit('Image size is too big');
+  }
+
+  $allowed_types = [
+    'image/png' => 'png',
+    'image/jpeg' => 'jpg'
+  ];
+
+  if(!in_array($image_type, array_keys($allowed_types))) {
+    exit($image_error);
+  }
+
   // Check for errors in uploaded file
   if ($_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
-    throw new Exception('Error uploading image', 400);
+    throw new Exception($image_error, 400);
   }
 }
