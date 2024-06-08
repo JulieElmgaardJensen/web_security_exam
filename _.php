@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 function _db(){
 	try{
     $user_name = "root";
-    $user_password = '';
+    $user_password = 'root';
 	  $db_connection = "mysql:host=localhost; dbname=company; charset=utf8mb4";
 		// $db_connection = 'sqlite:'.__DIR__.'/database/data.sqlite';
 	  $db_options = array(
@@ -269,7 +269,6 @@ if (!isset($_FILES['user_image']) || $_FILES['user_image']['error'] !== UPLOAD_E
 
 // ##############################
 function _check_signup_attempts(){
-  session_start();
 
     if (!isset($_SESSION['signup_attempts'])) {
       $_SESSION['signup_attempts'] = 0;
@@ -279,7 +278,6 @@ function _check_signup_attempts(){
   $_SESSION['signup_attempts']++;
   
   if ($_SESSION['signup_attempts'] > 3 && time() - $_SESSION['last_signup_time'] < 3600) {
-    session_destroy();
     throw new Exception('Too many signup attempts. Please try again later.', 429);
 
   }
