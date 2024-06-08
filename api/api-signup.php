@@ -4,6 +4,8 @@ require_once __DIR__.'/../_.php';
 
 
 try {
+
+    _check_signup_attempts();
     _validate_user_name();
     _validate_user_last_name();
     _validate_user_username();
@@ -12,26 +14,26 @@ try {
     _validate_user_confirm_password();
     _validate_user_image();
 
-$user_image_path = __DIR__ . '/uploads/default_image.png';
+    $default_image_path = '/uploads/default_image.png';
 
-// Define the upload directory relative to the document root
-$upload_dir = '/uploads/';
+    $user_image_path = __DIR__ . $default_image_path;
+    $upload_dir = '/uploads/';
 
-// Check if an image is uploaded and update $user_image_path if necessary
-if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
-    // Get the basename of the uploaded file
-    $filename = basename($_FILES['user_image']['name']);
-    // Construct the full path where the file will be moved
-    $full_path = __DIR__ . $upload_dir . $filename;
+    // Check if an image is uploaded and update $user_image_path if necessary
+    if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
+        $filename = basename($_FILES['user_image']['name']);
+        $full_path = __DIR__ . $upload_dir . $filename;
 
-    // Move the uploaded file to the desired directory
-    if (!move_uploaded_file($_FILES['user_image']['tmp_name'], $full_path)) {
-        throw new Exception('Failed to move uploaded file', 500);
+        if (!move_uploaded_file($_FILES['user_image']['tmp_name'], $full_path)) {
+            throw new Exception('Failed to move uploaded file', 500);
+        }
+
+        $user_image_path = $upload_dir . $filename;
+    } else {
+        // If no image is uploaded, use the default image path
+        $user_image_path = $default_image_path;
     }
 
-    // Construct the relative path to be stored in the database
-    $user_image_path = $upload_dir . $filename;
-}
 
     $db = _db();
     $q = $db->prepare('INSERT INTO  users 
@@ -93,6 +95,9 @@ if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
     $q->bindParam(':user_is_blocked', $user_is_blocked);
 
     $q->execute();
+
+    $_SESSION['signup_attempts']++;
+
     echo 'Signed up';
     $insertedUserId = $db->lastInsertId();
 

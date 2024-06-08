@@ -241,10 +241,10 @@ async function login() {
 
   if(data.user_role === 'admin') {
     location.href = `/users`;
-    updateLastActivity();
+    update_last_activity();
   }else {  
     location.href = `/profile?user_id=${data.user_id}`;
-    updateLastActivity();
+    update_last_activity();
   }
 
 }
@@ -435,15 +435,14 @@ async function add_order_comment() {
 
 }
 
-
-// ##################################
+// ############################################################
 let lastActivity = new Date().getTime();
 
-document.addEventListener('mousemove', updateLastActivity);
-document.addEventListener('keydown', updateLastActivity);
-document.addEventListener('scroll', updateLastActivity);
+document.addEventListener('mousemove', update_last_activity);
+document.addEventListener('keydown', update_last_activity);
+document.addEventListener('scroll', update_last_activity);
 
-function updateLastActivity() {
+function update_last_activity() {
   lastActivity = new Date().getTime();
 }
 
@@ -453,12 +452,12 @@ function checkInactivity() {
   const inactivityMinutes = inactivityTime / (1000 * 60);
 
   if (inactivityMinutes >= 30) {
-    window.location.href = '/logout';
+    location.href = '/logout'
   }
 }
 
 setInterval(checkInactivity, 30000);
 
-function updateLastActivity() {
+function update_last_activity() {
   lastActivity = new Date().getTime();
 }

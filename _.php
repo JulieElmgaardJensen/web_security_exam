@@ -219,6 +219,7 @@ function _if_logged_in_redirect(){
   };
 }
 
+// ##############################
 function _validate_user_image(){
 
 $image_path = $_FILES['user_image']['tmp_name'];
@@ -226,17 +227,20 @@ $image_size = filesize($image_path);
 $image_info = finfo_open(FILEINFO_MIME_TYPE);
 $image_type = finfo_file($image_info, $image_path);
 $image_error = 'Error adding image';
+$default_image_path = '/uploads/default_image.png';
 
-  if (!isset($_FILES['user_image'])){
-    exit($image_error);
-  }
+if (!isset($_FILES['user_image']) || $_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
+  // Use default image path if no image is uploaded
+  $_FILES['user_image']['tmp_name'] = $default_image_path;
+  return;
+}
 
   if ($image_size === 0) {
-    exit($image_error);
+    throw new Exception($image_error, 400);
   }
   //3 MB
   if ($image_size > 3145728) {
-    exit('Image size is too big');
+    throw new Exception($image_error, 400);
   }
 
   $allowed_types = [
@@ -245,11 +249,28 @@ $image_error = 'Error adding image';
   ];
 
   if(!in_array($image_type, array_keys($allowed_types))) {
-    exit($image_error);
+    throw new Exception($image_error, 400);
   }
 
   // Check for errors in uploaded file
   if ($_FILES['user_image']['error'] !== UPLOAD_ERR_OK) {
     throw new Exception($image_error, 400);
+  }
+}
+
+// ##############################
+function _check_signup_attempts(){
+  session_start();
+
+    if (!isset($_SESSION['signup_attempts'])) {
+      $_SESSION['signup_attempts'] = 0;
+      $_SESSION['last_signup_time'] = time();
+  }
+
+  $_SESSION['signup_attempts']++;
+  
+  if ($_SESSION['signup_attempts'] > 3 && time() - $_SESSION['last_signup_time'] < 3600) {
+    session_destroy();
+    throw new Exception('Too many signup attempts. Please try again later.', 429);
   }
 }
