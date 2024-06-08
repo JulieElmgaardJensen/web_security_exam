@@ -265,7 +265,7 @@ $image_error = 'Error adding image';
 
 // #################
 define('COMMENT_MIN', 2);
-define('COMMENT_MAX', 40);
+define('COMMENT_MAX', 60);
 function _validate_comment(){
 
   // Error message
