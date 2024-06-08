@@ -176,7 +176,7 @@ CREATE TABLE `users` (
 -- Data dump for tabellen `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_last_name`, `user_username`, `user_address`, `user_email`, `user_password`, `user_role`, `user_created_at`, `user_updated_at`, `user_deleted_at`, `user_is_blocked`) VALUES
+INSERT INTO `users` (`user_id`, `user_name`, `user_last_name`, `user_username`, `user_address`, `user_email`, `user_password`, `user_role`, `user_image`,  `user_created_at`, `user_updated_at`, `user_deleted_at`, `user_is_blocked`) VALUES
 (31, 'Rahsaan', 'Greenfelder', 'everett.ullrich', '7128 Nicole Springs\nFerryport, NM 95808', 'ktorp@yahoo.com', '$2y$10$Su8vmOqIq3ajUCjDc2uBcu4xPxeSeesHg6RJ1751NtscOmGg726X6', 'user', '', '1701435188', '0', '0', 0),
 (32, 'Gwen', 'Deckow', 'deon.daniel', '1265 Ferne Grove Apt. 222\nWatersside, GA 24049', 'kacie90@bailey.com', '$2y$10$6RaAOPC.vxv/rq94B51hRunmmt21AxEfMsGyi.iBuj6ARYlZP3B72', 'partner', '', '1701435188', '0', '0', 0),
 (36, 'Enid', 'Feeney', 'lorine.nikolaus', '724 Hane Square\nZoeyfort, NY 22897', 'dion96@jacobi.net', '$2y$10$jv.3R3sCXgGw90nfRV0QCesKCGU5Q0qGHCBWV8kcI9dv3DA2e5vue', 'partner', '', '1701435189', '0', '0', 1),
