@@ -17,16 +17,16 @@ try{
   $q->execute();
   $user = $q->fetch();
 
-  //if there is no user - 400 error
   if( ! $user ){
     throw new Exception('invalid credentials', 400);
   }
-  //if the password dosent match the users password - 400 error
+
   if( ! password_verify($_POST['user_password'], $user['user_password']) ){
     throw new Exception('wrong password', 400);
   }
-  //start session and save the users information in the session user
+
   session_start();
+  //session_regenerate_id(true);
   $_SESSION['user'] = [
     'user_id' => $user['user_id'],
     'user_name' => $user['user_name'],

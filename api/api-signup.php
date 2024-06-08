@@ -63,8 +63,6 @@ if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
         :user_deleted_at, 
         :user_is_blocked)
     ');
-    
-    $options = ['cost' => 11];
 
     $user_id = null;
     $user_name = $_POST['user_name'];
@@ -72,7 +70,7 @@ if ($_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
     $user_username = $_POST['user_username'];
     $user_address = $_POST['user_address'];
     $user_email = $_POST['user_email'];
-    $user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT, $options);
+    $user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
     $user_role = $_POST['user_role'];
     $user_created_at = time();
     $user_updated_at = 0;
