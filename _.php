@@ -282,6 +282,8 @@ function _check_signup_attempts(){
     session_destroy();
     throw new Exception('Too many signup attempts. Please try again later.', 429);
 
+  }
+}
     
 // #################
 define('COMMENT_MIN', 2);
