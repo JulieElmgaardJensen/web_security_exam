@@ -22,12 +22,15 @@ $order_id = $_GET['order_id'];
       </label>
 
       <input id="order_comment" name="order_comment" type="text"
-      class="border rounded-md" value="">
+      class="border rounded-md" value="" data-validate="str">
     </div>
 
     <!-- Hidden input field for 'order_id' -->
     <input type="hidden" name="order_id" value="<?= $_GET['order_id'] ?>">
-
+    
+    <!-- CRSF token checker -->
+    <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
+    
     <button class="w-full h-10 bg-teal-200 text-gray-900 rounded-md py-2 px-8">Create comment</button>
 
   </form>

@@ -36,6 +36,9 @@ try{
     'user_is_blocked' => $user['user_is_blocked']
   ];
 
+  //Create a session token 
+  $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+
   echo json_encode($_SESSION['user']);
 
 

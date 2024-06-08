@@ -24,6 +24,9 @@ $user = $q->fetch();
 <main class="w-full min-h-screen mt-2">
   <form onsubmit="update_user(); return false" enctype="multipart/form-data" class="flex flex-col px-4 lg:w-1/3 mx-auto gap-4 [&_input]:h-10 [&_input]:rounded-md [&_input]:outline-none [&_input]:text-black">
 
+  <!-- CRSF token checker -->
+  <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
+  
   <div class="grid">
   <h2 class="font-arimo text-3xl text-gray-50 pb-4">Update your informations</h2>
       <label for="user_name" class="flex">

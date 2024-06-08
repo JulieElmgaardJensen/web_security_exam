@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 function _db(){
 	try{
     $user_name = "root";
-    $user_password = 'root';
+    $user_password = '';
 	  $db_connection = "mysql:host=localhost; dbname=company; charset=utf8mb4";
 		// $db_connection = 'sqlite:'.__DIR__.'/database/data.sqlite';
 	  $db_options = array(
@@ -20,7 +20,6 @@ function _db(){
 }
 
 // ##############################
-
 define('USER_NAME_MIN', 2);
 define('USER_NAME_MAX', 20);
 function _validate_user_name(){
@@ -32,10 +31,10 @@ function _validate_user_name(){
   if(!isset($_POST['user_name'])){
     throw new Exception($error, 400);
   }
-  // remove spaces
-  $_POST['user_name'] = trim($_POST['user_name']);
+  // remove spaces and sanitize 
+  $_POST['user_name'] = htmlspecialchars(trim($_POST['user_name']), ENT_QUOTES, 'UTF-8');
 
-  //check the lenght of the input - else exception
+  //check the length of the input - else exception
   if( strlen($_POST['user_name']) < USER_NAME_MIN ){
     throw new Exception($error, 400);
   }
@@ -55,7 +54,8 @@ function _validate_user_last_name(){
   if(!isset($_POST['user_last_name'])){
     throw new Exception($error, 400);
   }
-  $_POST['user_last_name'] = trim($_POST['user_last_name']);
+
+  $_POST['user_last_name'] = htmlspecialchars(trim($_POST['user_last_name']), ENT_QUOTES, 'UTF-8');
 
   if( strlen($_POST['user_last_name']) < USER_LAST_NAME_MIN ){
     throw new Exception($error, 400);
@@ -76,7 +76,8 @@ function _validate_user_username(){
   if(!isset($_POST['user_username'])){
     throw new Exception($error, 400);
   }
-  $_POST['user_username'] = trim($_POST['user_username']);
+
+  $_POST['user_username'] = htmlspecialchars(trim($_POST['user_username']), ENT_QUOTES, 'UTF-8');
 
   if( strlen($_POST['user_username']) < USER_USERNAME_MIN ){
     throw new Exception($error, 400);
@@ -97,7 +98,8 @@ function _validate_user_address(){
   if(!isset($_POST['user_address'])){ 
     throw new Exception($error, 400); 
   }
-  $_POST['user_address'] = trim($_POST['user_address']);
+
+  $_POST['user_address'] = htmlspecialchars(trim($_POST['user_address']), ENT_QUOTES, 'UTF-8');
 
   if( strlen($_POST['user_address']) < USER_ADDRESS_MIN ){
     throw new Exception($error, 400);
@@ -109,14 +111,14 @@ function _validate_user_address(){
 }
 
 // ##############################
-
 function _validate_user_email(){
   $error = 'user_email invalid';
   if(!isset($_POST['user_email'])){
     throw new Exception($error, 400);
   }
-  $_POST['user_email'] = trim($_POST['user_email']);
 
+  $_POST['user_email'] = filter_var(trim($_POST['user_email']), FILTER_SANITIZE_EMAIL);
+  //validates the email
   if( ! filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL) ){
     throw new Exception($error, 400);
   }
@@ -132,7 +134,8 @@ function _validate_user_password(){
   if(!isset($_POST['user_password'])){ 
     throw new Exception($error, 400); 
   }
-  $_POST['user_password'] = trim($_POST['user_password']);
+
+  $_POST['user_password'] = htmlspecialchars(trim($_POST['user_password']), ENT_QUOTES, 'UTF-8');
 
   if( strlen($_POST['user_password']) < USER_PASSWORD_MIN ){
     throw new Exception($error, 400);
@@ -145,11 +148,15 @@ function _validate_user_password(){
 
 // ##############################
 function _validate_user_confirm_password(){
+
   $error = 'user_confirm_password must match the user_password';
+
   if(!isset($_POST['user_confirm_password'])){ 
     throw new Exception($error, 400); 
   }
-  $_POST['user_confirm_password'] = trim($_POST['user_confirm_password']);
+
+  $_POST['user_confirm_password'] = htmlspecialchars(trim($_POST['user_confirm_password']), ENT_QUOTES, 'UTF-8');
+  
   if( $_POST['user_password'] != $_POST['user_confirm_password']){
     throw new Exception($error, 400); 
   }
@@ -219,7 +226,8 @@ function _if_logged_in_redirect(){
   };
 }
 
-// ##############################
+
+// ###############################
 function _validate_user_image(){
 
 $image_path = $_FILES['user_image']['tmp_name'];
@@ -258,6 +266,7 @@ if (!isset($_FILES['user_image']) || $_FILES['user_image']['error'] !== UPLOAD_E
   }
 }
 
+
 // ##############################
 function _check_signup_attempts(){
   session_start();
@@ -272,5 +281,25 @@ function _check_signup_attempts(){
   if ($_SESSION['signup_attempts'] > 3 && time() - $_SESSION['last_signup_time'] < 3600) {
     session_destroy();
     throw new Exception('Too many signup attempts. Please try again later.', 429);
+
+    
+// #################
+define('COMMENT_MIN', 2);
+define('COMMENT_MAX', 60);
+function _validate_comment(){
+
+  // Error message
+  $error = 'Comment min length '.COMMENT_MIN.' max length '.COMMENT_MAX;
+
+  // remove spaces
+  $_POST['order_comment'] = htmlspecialchars(trim($_POST['order_comment']), ENT_QUOTES, 'UTF-8');
+
+  //check the lenght of the input - else exception
+  if( strlen($_POST['order_comment']) < COMMENT_MIN ){
+    throw new Exception($error, 400);
+  }
+
+  if( strlen($_POST['order_comment']) > COMMENT_MAX ){
+    throw new Exception($error, 400);
   }
 }
