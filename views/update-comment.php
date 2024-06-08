@@ -5,6 +5,7 @@ require_once __DIR__.'/_header.php';
 
 //checks if the user has the permision to see this page
 _is_logged_in();
+_validate_comment();
 
 // Gets the user id from the url
 $order_id = $_GET['order_id'];
@@ -22,12 +23,11 @@ $order_id = $_GET['order_id'];
       </label>
 
       <input id="order_comment" name="order_comment" type="text"
-      class="border rounded-md" value="">
+      class="border rounded-md" value="" data-validate="str">
     </div>
 
     <!-- Hidden input field for 'order_id' -->
     <input type="hidden" name="order_id" value="<?= $_GET['order_id'] ?>">
-
     <button class="w-full h-10 bg-teal-200 text-gray-900 rounded-md py-2 px-8">Create comment</button>
 
   </form>
