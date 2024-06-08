@@ -6,13 +6,10 @@ require_once __DIR__ . '/_header.php';
 $user_id = $_GET['user_id'];
 
 //checks if the user has the permision to see this page
-
 _check_user_id($user_id);
 _is_logged_in();
 _is_deleted();
 _is_blocked();
-_validate_comment();
-
 
 $db = _db();
 $q = $db->prepare('SELECT * FROM users WHERE user_id = :user_id');
@@ -74,6 +71,8 @@ $user_image_path = isset($user['user_image']) ? $user['user_image'] : '';
       </button></a>
       <form onsubmit="confirm_delete_own_user(); return false" class="w-1/4">
         <input class="hidden" name="user_id" type="text" value="<?= $user['user_id'] ?>">
+        <!-- CRSF token checker -->
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
         <button class="bg-zinc-800 text-gray-50 rounded-3xl py-2 px-8 my-4 ml-2">Delete</button>
       </form>
     </div>

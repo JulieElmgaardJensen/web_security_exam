@@ -4,6 +4,20 @@ header('Content-Type: application/json');
 require_once __DIR__.'/../_.php';
 
 try{
+  session_start();
+
+  // Check if the session token and POST token are set
+  if (!isset($_SESSION['token']) || !isset($_POST['token'])) {
+    throw new Exception('Token is not set.', 400);
+  }
+
+  // Validate the token
+  if ($_POST['token'] !== $_SESSION['token']) {
+    throw new Exception('Invalid token.', 400);
+  }
+
+  _validate_comment();
+
   $db = _db();
   
   $q = $db->prepare('

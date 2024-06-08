@@ -9,6 +9,16 @@ try{
   //for deleting a user, we need to check if the user is logged in
   _is_logged_in();
 
+  // Check if the session token and POST token are set
+  if (!isset($_SESSION['token']) || !isset($_POST['token'])) {
+    throw new Exception('Token is not set.', 400);
+  }
+
+  // Validate the token
+  if ($_POST['token'] !== $_SESSION['token']) {
+    throw new Exception('Invalid token.', 400);
+  }
+
   //defines our variable with the user_id that are saved from the session
   $user_id = $_SESSION['user']['user_id'];
   
